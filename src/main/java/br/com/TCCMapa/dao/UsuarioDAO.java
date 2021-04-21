@@ -13,6 +13,7 @@ public class UsuarioDAO {
     private EntityManagerFactory factory = Persistence
                 .createEntityManagerFactory("TCCMapa");
     private EntityManager em = factory.createEntityManager();
+    
  
     public Usuario getUsuario(String nomeUsuario, String senha) {
  

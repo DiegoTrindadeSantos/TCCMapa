@@ -25,6 +25,7 @@ public class Usuario {
     @Temporal(TemporalType.DATE)
     private Date ultimoAcesso;
     
+    
     public String getNomeUsuario() {
           return nomeUsuario;
     }

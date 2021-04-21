@@ -21,6 +21,7 @@ public class UsuarioShpImport {
 	
 	@Column(name="primeiraParte", nullable=false, unique=true, insertable=false, updatable=false)
 	private String terceiraParte;
+	
 
 	public int getId() {
 		return id;
