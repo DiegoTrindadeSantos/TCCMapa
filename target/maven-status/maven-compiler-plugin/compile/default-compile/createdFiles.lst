@@ -1,4 +1,5 @@
 br\com\TCCMapa\model\Usuario.class
+br\com\TCCMapa\ManagedBeans\CadastroManagedBean.class
 br\com\TCCMapa\utils\GeradorMapaHtml.class
 br\com\TCCMapa\ManagedBeans\MapaManagedBean.class
 br\com\TCCMapa\ManagedBeans\LoginManagedBean.class
