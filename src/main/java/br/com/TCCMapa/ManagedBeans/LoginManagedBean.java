@@ -32,6 +32,10 @@ public class LoginManagedBean {
 	         
 	         
 	  }
+	  
+	  public String cadastrar() {
+		  return "/cadastrar";
+	  }
 	 
 	  public Usuario getUsuario() {
 	    return usuario;

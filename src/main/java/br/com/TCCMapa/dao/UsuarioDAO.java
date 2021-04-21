@@ -1,5 +1,7 @@
 package br.com.TCCMapa.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
@@ -45,6 +47,10 @@ public class UsuarioDAO {
         }
 		return null;
       }
+    
+    public List<Usuario> listAll(){
+    	return this.em.createQuery("SELECT u from Usuario u", Usuario.class).getResultList();
+    }
  
   public boolean inserirUsuario(Usuario usuario) {
           try {
