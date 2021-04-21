@@ -1,7 +1,6 @@
 package br.com.TCCMapa.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,6 +13,7 @@ import org.hibernate.HibernateException;
 
 import br.com.TCCMapa.model.Usuario;
 import br.com.TCCMapa.model.UsuarioShpImport;
+import br.com.TCCMapa.utils.ConnectionManager;
 
 public class ArquivosDAO {
 
@@ -25,7 +25,8 @@ public class ArquivosDAO {
 		Usuario usuarioLogado = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
     	String nomeUsuario = usuarioLogado.getNomeUsuario();
 		try {
-			Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/ProjetoFinal", "postgres", "147862Dj");
+			ConnectionManager connectionManager = new ConnectionManager();
+			Connection conn = connectionManager.getConnection();
 			
 			int proximoId = 0;
 			
@@ -72,7 +73,8 @@ public class ArquivosDAO {
 		Usuario usuarioLogado = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
     	String nomeUsuario = usuarioLogado.getNomeUsuario();
 		try {
-			Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/ProjetoFinal", "postgres", "147862Dj");
+			ConnectionManager connectionManager = new ConnectionManager();
+			Connection conn = connectionManager.getConnection();
 			
 			ps = conn.prepareStatement("insert into UsuarioGeoFormas (id,geojsonformas,usuario) values (nextVal('formas_seq'),?,?)");
 			ps.setString(1,geoJsonFormas);
@@ -98,7 +100,8 @@ public class ArquivosDAO {
 	public int getNextIdShpImport() {
 		PreparedStatement ps = null;
 		try {
-			Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/ProjetoFinal", "postgres", "147862Dj");
+			ConnectionManager connectionManager = new ConnectionManager();
+			Connection conn = connectionManager.getConnection();
 			
 			ps = conn.prepareStatement("SELECT nextVal('shape_seq')");
 			ResultSet rs = ps.executeQuery();
@@ -131,7 +134,8 @@ public class ArquivosDAO {
 		Usuario usuarioLogado = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
     	String nomeUsuario = usuarioLogado.getNomeUsuario();
 		try {
-			Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/ProjetoFinal", "postgres", "147862Dj");
+			ConnectionManager connectionManager = new ConnectionManager();
+			Connection conn = connectionManager.getConnection();
 			
 			ps = conn.prepareStatement("SELECT geoJsonFormas FROM usuariogeoformas WHERE usuario = ?");
 			ps.setInt(1, usuarioDao.getUsuario(nomeUsuario).getId());
@@ -166,7 +170,8 @@ public class ArquivosDAO {
 		Usuario usuarioLogado = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
     	String nomeUsuario = usuarioLogado.getNomeUsuario();
 		try {
-			Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/ProjetoFinal", "postgres", "147862Dj");
+			ConnectionManager connectionManager = new ConnectionManager();
+			Connection conn = connectionManager.getConnection();
 			
 			UsuarioShpImport shpImport;
 			List<UsuarioShpImport> listaShpImport;

@@ -81,6 +81,10 @@ public class MapaManagedBean {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
+    
+    public String sair() {
+    	return "/main";
+    }
 
 	public int getIdInserido() {
 		return idInserido;

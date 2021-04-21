@@ -9,7 +9,7 @@
   
 <h:body>
   <h:form id="usuarios">
-   <p:growl id="growl" sticky="true" />
+   <p:growl id="messages" sticky="true" />
    <p:dataTable id="userList" var="user" value="#{cadastroMB.usuarios}">
       <p:column headerText="Id">
          <h:outputText value="#{user.id}"/>
@@ -20,7 +20,7 @@
        </p:column>
 		
 	   <p:column headerText="Senha">
-         <p:password id="senha" value="#{user.senha}" toggleMask="true" redisplay="true"/>
+         <p:password id="senha" value="#{user.senha}" redisplay="true" feedback="true" />
        </p:column>
 		
         <p:column>
@@ -32,23 +32,28 @@
      </p:dataTable>
      <br/>
      <p:commandButton style="float: right" id="save" value="Save" tyleClass="ui-priority-primary"
-                action="#{cadastroMB.add}" icon="ui-icon-disk" update="growl">
+                action="#{cadastroMB.update}" icon="ui-icon-disk" update="messages">
          <f:ajax execute="@form" render="@form"/>
      </p:commandButton>
 </h:form>
 
 <h:form id="add">
     <h:panelGrid columns="3" cellpadding="5" style="margin: 0 auto;">
+    	<p:growl id="messages" sticky="true" />
         <p:outputLabel for="nomeUsuario" value="Login" />
         <p:inputText id="nomeUsuario" value="#{cadastroMB.usuario.nomeUsuario}" />
         <p:message for="nomeUsuario" />
  
-        <p:outputLabel for="senha" value="Last name" />
-        <p:password id="senha" value="#{cadastroMB.usuario.senha}" toggleMask="true" redisplay="true"/>
+        <p:outputLabel for="senha" value="Senha" />
+        <p:password id="senha" value="#{cadastroMB.usuario.senha}" feedback="true"/>
         <p:message for="senha" />
  
-        <p:commandButton update="@form :usuarios:userList" value="Add" action="#{cadastroMB.add}">
+        <p:commandButton update="@form :usuarios:userList messages" value="Add" action="#{cadastroMB.add}" >
         </p:commandButton>
+    </h:panelGrid>
+    
+    <h:panelGrid columns="1" cellpadding="5" style="margin: 0 auto; border:0px">
+    	<p:commandButton id="back" value="voltar" action="#{cadastroMB.voltar}" />
     </h:panelGrid>
 </h:form>
 </h:body>

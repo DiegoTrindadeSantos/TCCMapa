@@ -3,8 +3,10 @@ package br.com.TCCMapa.ManagedBeans;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import br.com.TCCMapa.dao.UsuarioDAO;
 import br.com.TCCMapa.model.Usuario;
@@ -31,8 +33,21 @@ public class CadastroManagedBean {
 
     public void add() {
     	usuarioDao.inserirUsuario(usuario);
+    	FacesMessage message = new FacesMessage("Usuário ", usuario.getNomeUsuario() + " adicionado com sucesso.");
+        FacesContext.getCurrentInstance().addMessage(null, message);
         this.usuarios = usuarioDao.listAll();
         this.usuario = new Usuario();
+        
+    }
+    
+    public void update() {
+    	usuarioDao.atualizarUsuario(usuarios);
+    	FacesMessage message = new FacesMessage("Atualizado com sucesso");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+    
+    public String voltar() {
+    	return "/main";
     }
 
 	public List<Usuario> getUsuarios() {
