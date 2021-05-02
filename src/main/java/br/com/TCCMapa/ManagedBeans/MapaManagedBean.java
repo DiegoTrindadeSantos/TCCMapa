@@ -55,6 +55,11 @@ public class MapaManagedBean {
     	String geoJson = requestParamMap.get("geoJson");
     	arquivosDAO.salvarGeoJsonFormas(geoJson);
     }
+    
+    public void salvar() {
+    	arquivosDAO.excluirGeoJsonUsuario();
+    	PrimeFaces.current().executeScript("Salvar()");
+    }
 
 	public void handleFileUpload(FileUploadEvent event) {
 		FacesMessage msg = new FacesMessage("Successful", event.getFile().getFileName() + " is uploaded.");

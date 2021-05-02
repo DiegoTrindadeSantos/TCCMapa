@@ -16,10 +16,10 @@ public class UsuarioShpImport {
 	@Column(name="primeiraParte", nullable=false, unique=true, insertable=false, updatable=false)
 	private String primeiraParte;
 	
-	@Column(name="primeiraParte", nullable=false, unique=true, insertable=false, updatable=false)
+	@Column(name="segundaParte", nullable=false, unique=true, insertable=false, updatable=false)
 	private String segundaParte;
 	
-	@Column(name="primeiraParte", nullable=false, unique=true, insertable=false, updatable=false)
+	@Column(name="terceiraParte", nullable=false, unique=true, insertable=false, updatable=false)
 	private String terceiraParte;
 	
 

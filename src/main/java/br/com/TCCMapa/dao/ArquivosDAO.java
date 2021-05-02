@@ -68,6 +68,33 @@ public class ArquivosDAO {
 
 	}
 	
+	public void excluirGeoJsonUsuario() {
+		PreparedStatement ps = null;
+		Usuario usuarioLogado = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
+    	String nomeUsuario = usuarioLogado.getNomeUsuario();
+		try {
+			ConnectionManager connectionManager = new ConnectionManager();
+			Connection conn = connectionManager.getConnection();
+			
+			ps = conn.prepareStatement("delete from UsuarioGeoFormas where usuario = ?");
+			ps.setInt(1,usuarioDao.getUsuario(nomeUsuario).getId());
+			ps.executeUpdate();
+			ps.close();
+
+			
+		} catch (HibernateException ex) {
+			ex.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	public void salvarGeoJsonFormas(String geoJsonFormas) {
 		PreparedStatement ps = null;
 		Usuario usuarioLogado = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");

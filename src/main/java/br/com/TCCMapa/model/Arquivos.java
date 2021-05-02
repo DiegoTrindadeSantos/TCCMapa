@@ -18,9 +18,6 @@ public class Arquivos {
      @Column(name="geoJsonFormas", nullable=false, unique=true)
      private String geoJsonFormas;
      
-     @Lob
-     private byte[] file;
-
 	public int getId() {
 		return id;
 	}
@@ -35,14 +32,6 @@ public class Arquivos {
 
 	public void setNomeArquivo(String nomeArquivo) {
 		this.nomeArquivo = nomeArquivo;
-	}
-
-	public byte[] getFile() {
-		return file;
-	}
-
-	public void setFile(byte[] file) {
-		this.file = file;
 	}
 
 	public String getGeoJsonFormas() {

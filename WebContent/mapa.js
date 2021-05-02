@@ -44,9 +44,6 @@ var attribution = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> c
 
 		        m.on('draw:created', function (e) {
 		                layer = e.layer;
-					var geoJsonFormas = JSON.stringify(layer.toGeoJSON());
-					
-					recebeJsonFormas([{ name:'geoJson', value : geoJsonFormas }]);
 		            drawnItems.addLayer(layer);
 		        });
 		 
@@ -111,6 +108,17 @@ var attribution = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> c
 				}
 			}).addTo(m);
 		}
+		
+		function Salvar(){
+			m.eachLayer(function(layer){
+				if(layer.feature!=null){
+				const geoJsonFormas = JSON.stringify(layer.toGeoJSON());
+				
+				recebeJsonFormas([{ name:'geoJson', value : geoJsonFormas }]);
+			}
+			});
+		}
+		
 		function CarregarShp1(geoJsonFormas){
 			shp1 = geoJsonFormas;
 		}
@@ -206,29 +214,6 @@ var attribution = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> c
 				}}).addTo(m);
 				layer="";
 				layer = arrayLayers[indice].addData(data);
-				var rec1;
-				var rec2;
-				var rec3;
-				var collection = {
-					    "type": "FeatureCollection",
-					    "features": []
-					};
-				data.features.forEach(function(feature){
-				    collection.features.push(feature);
-				});
-				var receberGeoJson = JSON.stringify(collection);
-				if(receberGeoJson.length > 3000000){
-					rec1 = receberGeoJson.substring(0,1500000);
-					rec2 = receberGeoJson.substring(1500000,3000000);
-					rec3 = receberGeoJson.substring(3000000);
-				}else if(receberGeoJson.length > 1500000){
-					rec1 = receberGeoJson.substring(0,1000000);
-					rec2 = receberGeoJson.substring(1000000,2000000);
-					rec3 = receberGeoJson.substring(2000000);
-				}
-				recebeJson([{ name:'geoJson1', value : rec1 }]);
-				recebeJson([{name:'geoJson2', value : rec2}]);
-				recebeJson([{name:'geoJson3', value : rec3}]);
 				
 				layer.setStyle({
 				       color: cor,

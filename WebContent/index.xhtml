@@ -69,6 +69,7 @@ input {
         <p:remoteCommand name="recebeJsonFormas" process="@this" actionListener="#{MapaMB.recebeJsonFormas}" />
         
         <p:commandButton action="#{MapaMB.buttonAction}" value="Carregar" update="messages"  />
+        <p:commandButton action="#{MapaMB.salvar}" value="Salvar" update="messages"  />
     	<p:growl id="messages" showDetail="true" />
 		<br />
 		<span id="warning"></span>
