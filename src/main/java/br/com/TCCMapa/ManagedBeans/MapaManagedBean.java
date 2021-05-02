@@ -21,6 +21,9 @@ public class MapaManagedBean {
 	private UploadedFile file;
 	private ArquivosDAO arquivosDAO = new ArquivosDAO();
 	public int idInserido;
+	
+	private LoginManagedBean loginMDB = new LoginManagedBean();
+	
 
 	public UploadedFile getFile() {
         return file;
@@ -59,6 +62,8 @@ public class MapaManagedBean {
     public void salvar() {
     	arquivosDAO.excluirGeoJsonUsuario();
     	PrimeFaces.current().executeScript("Salvar()");
+    	FacesMessage msg = new FacesMessage("Salvo com sucesso.");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
 	public void handleFileUpload(FileUploadEvent event) {
@@ -66,20 +71,21 @@ public class MapaManagedBean {
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
     
-    public void buttonAction() {
+    public void carregar() {
         List<String> listaGeoFormas = arquivosDAO.obterGeoJsonFormas();
         for (String geoForma : listaGeoFormas) {
         	PrimeFaces.current().executeScript("Carregar('"+geoForma+"')");			
 		}
-        this.carregarShpImports();
+        FacesMessage msg = new FacesMessage("Carregado com sucesso.");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-    public void carregarShpImports() {
-        List<UsuarioShpImport> listaShpImport = arquivosDAO.obterShpImport();
-        for (UsuarioShpImport usuarioShpImport : listaShpImport) {
-        	PrimeFaces.current().executeScript("CarregarShp1('"+usuarioShpImport.getPrimeiraParte()+"')");
-        	PrimeFaces.current().executeScript("CarregarShp2('"+usuarioShpImport.getSegundaParte()+"')");
-        	PrimeFaces.current().executeScript("CarregarShp3('"+usuarioShpImport.getTerceiraParte()+"')");
-		}
+    
+    public String limparMapa() {
+    	arquivosDAO.excluirGeoJsonUsuario();
+    	FacesMessage msg = new FacesMessage("Todas as informações foram excluídas.");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    	return "/main";
+    	
     }
     
     public void addMessage(String summary) {

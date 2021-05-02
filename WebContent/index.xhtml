@@ -64,18 +64,29 @@ input {
 		<h:outputLabel value="Escolha uma arquivo .zip que contenha o Shapefile" />		
 		<p:fileUpload fileUploadListener="#{MapaMB.handleFileUpload}" proccess="this" mode="advanced" onstart="Add(PF('uploadWG'))" uploadLabel="Enviar" label="Adicionar"
                   update="messages" auto="true" allowTypes="/(\.|\/)(zip)$/" widgetVar="uploadWG" />
+                  <br />
                   
         <p:remoteCommand name="recebeJson" process="@this" actionListener="#{MapaMB.recebeJson}" />
         <p:remoteCommand name="recebeJsonFormas" process="@this" actionListener="#{MapaMB.recebeJsonFormas}" />
         
-        <p:commandButton action="#{MapaMB.buttonAction}" value="Carregar" update="messages"  />
-        <p:commandButton action="#{MapaMB.salvar}" value="Salvar" update="messages"  />
+        <p:commandButton action="#{MapaMB.carregar}" value="Carregar" update="messages"  />
+        <p:commandButton action="#{MapaMB.salvar}" value="Salvar" update="messages"  >
+        	<p:confirm header="Salvar" message="Deseja Salvar todas as informações no banco de dados?" icon="pi pi-exclamation-triangle"/>
+        </p:commandButton>
+        
     	<p:growl id="messages" showDetail="true" />
+    	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />
+        </p:confirmDialog>
 		<br />
 		<span id="warning"></span>
 	</p:panel>
+	<br />
 		<p:commandButton id="back" value="Sair" action="#{MapaMB.sair}" />
-		
+		<p:commandButton action="#{MapaMB.limparMapa}" value="Limpar o Mapa" update="messages"  >
+        	<p:confirm header="Limpar" message="Tem certeza que deseja excluir todas as informações do mapa?" icon="pi pi-exclamation-triangle"/>
+        </p:commandButton>
 		<script src="mapa.js"></script>
 	</h:form>
 </h:body>

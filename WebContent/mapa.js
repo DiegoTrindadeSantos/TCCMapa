@@ -71,6 +71,75 @@ var attribution = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> c
 	      		hideControlContainer: true
 			}).addTo(m);
 
+
+		function iniciarMapa(){
+			attribution = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>';
+			indice = 0;
+			arrayLayers = [];
+		 	m = "";
+		 	m= L.map('map').setView([34.74161249883172,18.6328125], 2);
+
+			drawnItems = new L.FeatureGroup();
+		        m.addLayer(drawnItems);
+
+		        drawControl = new L.Control.Draw({
+		        	   draw: {
+		        	    polygon: {
+		        	     shapeOptions: {
+		        	      color: 'purple'
+		        	     },
+		        	    },
+		        	    polyline: {
+		        	     shapeOptions: {
+		        	      color: 'red'
+		        	     },
+		        	    },
+		        	    rect: {
+		        	     shapeOptions: {
+		        	      color: 'green'
+		        	     },
+		        	    },
+		        	    circle: {
+		        	     shapeOptions: {
+		        	      color: 'steelblue'
+		        	     },
+		        	    },
+		        	   },
+		        	   edit: {
+		        	    featureGroup: drawnItems
+		        	   }
+		        	  });
+		        	  m.addControl(drawControl);
+
+		        m.on('draw:created', function (e) {
+		                layer = e.layer;
+		            drawnItems.addLayer(layer);
+		        });
+		 
+			mapnik = L.tileLayer(
+			        'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+			        , {attribution: attribution}
+			).addTo(m);
+		 
+			 blackAndWhite = L.tileLayer(
+			         'http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png'
+			         , {attribution: attribution}
+			 )
+		 
+			 baseMaps = {
+			       "Mapnik": mapnik, "Black and White": blackAndWhite
+			   };
+		 
+		 	grupoLayer = L.control.layers(baseMaps).addTo(m);
+		 	
+		 	printer = L.easyPrint({
+	      		tileLayer: mapnik,
+	      		sizeModes: ['Current', 'A4Landscape', 'A4Portrait'],
+	      		filename: 'myMap',
+	      		exportOnly: true,
+	      		hideControlContainer: true
+			}).addTo(m);
+		}
 		 	
 		function Add(file){
 			var files = file.files;
@@ -111,11 +180,17 @@ var attribution = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> c
 		
 		function Salvar(){
 			m.eachLayer(function(layer){
-				if(layer.feature!=null){
-				const geoJsonFormas = JSON.stringify(layer.toGeoJSON());
-				
-				recebeJsonFormas([{ name:'geoJson', value : geoJsonFormas }]);
-			}
+				if(layer._bounds!=null && layer._leaflet_id!=null && layer._container!=null){
+					const layersInternos = layer._layers;
+					for(const indice in layersInternos){
+					    console.log(layersInternos[indice].toGeoJSON());
+					    
+					    const geoJsonFormas = JSON.stringify(layersInternos[indice].toGeoJSON());
+ 				
+ 						recebeJsonFormas([{ name:'geoJson', value : geoJsonFormas }]);
+					    
+					}
+				}
 			});
 		}
 		
