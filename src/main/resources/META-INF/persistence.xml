@@ -12,8 +12,6 @@
     
     <!-- entidade mapeada -->
     <class>br.com.TCCMapa.model.Usuario</class>
-    <class>br.com.TCCMapa.model.Arquivos</class>
-    <class>br.com.TCCMapa.model.UsuarioShpImport</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" /> <!-- DB Driver -->

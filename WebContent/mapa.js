@@ -111,10 +111,7 @@ var attribution = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> c
 		        	  });
 		        	  m.addControl(drawControl);
 
-		        m.on('draw:created', function (e) {
-		                layer = e.layer;
-		            drawnItems.addLayer(layer);
-		        });
+		       
 		 
 			mapnik = L.tileLayer(
 			        'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
@@ -131,6 +128,13 @@ var attribution = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> c
 			   };
 		 
 		 	grupoLayer = L.control.layers(baseMaps).addTo(m);
+		 	
+		 	 m.on('draw:created', function (e) {
+		            layer = e.layer;
+		            grupoLayer.addOverlay(layer,'layer'+indice);
+		            drawnItems.addLayer(layer);
+		            
+		        });
 		 	
 		 	printer = L.easyPrint({
 	      		tileLayer: mapnik,
@@ -159,6 +163,7 @@ var attribution = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> c
 		}
 		
 		function Carregar(geoJsonFormas){
+			indice = indice+1;
 			var arrayCoresHexa= [
 				'#b01207',
 				'#099104',
@@ -169,13 +174,27 @@ var attribution = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> c
 				'#9ae053',
 				'#f09116'
 				];
-				var randomNumber = Math.floor(Math.random()*arrayCoresHexa.length);
-				var cor = arrayCoresHexa[randomNumber];
-			L.geoJSON(JSON.parse(geoJsonFormas), {
-				style: function () {
-					return {color: cor};
+			var randomNumber = Math.floor(Math.random()*arrayCoresHexa.length);
+			var cor = arrayCoresHexa[randomNumber];
+			arrayLayers[indice]=L.geoJSON(JSON.parse(geoJsonFormas), {
+			style: function () {
+				return {color: cor};
+			},
+			onEachFeature:function (f,l){
+				
+				l.on('click', function(e){
+					htmlPopup="<table>";
+						for(var key in e.target.feature.properties){
+						   if (e.target.feature.properties.hasOwnProperty(key)) {
+								htmlPopup+=" <tr><th>"+key+"</th><td>"+e.target.feature.properties[key]+"</td></tr>";
+						   }
+						}
+						htmlPopup+="</table>";
+						l.bindPopup(htmlPopup);
+					})
 				}
 			}).addTo(m);
+			grupoLayer.addOverlay(arrayLayers[indice],'layer'+indice);
 		}
 		
 		function Salvar(){
@@ -192,51 +211,6 @@ var attribution = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> c
 					}
 				}
 			});
-		}
-		
-		function CarregarShp1(geoJsonFormas){
-			shp1 = geoJsonFormas;
-		}
-		function CarregarShp2(geoJsonFormas){
-			shp2 = geoJsonFormas;
-		}
-		function CarregarShp3(geoJsonFormas){
-			shp3 = geoJsonFormas;
-			
-			var arrayCoresHexa= [
-				'#b01207',
-				'#099104',
-				'#041187',
-				'#d4d00d',
-				'#24bfab',
-				'#e053bd',
-				'#9ae053',
-				'#f09116'
-				];
-				var randomNumber = Math.floor(Math.random()*arrayCoresHexa.length);
-				var cor = arrayCoresHexa[randomNumber];
-				var htmlPopup;
-				
-			var geoJsonBefore = JSON.parse(shp1+shp2+shp3);
-			geoJsonBefore = rewind(geoJsonBefore, true);
-			L.geoJson(JSON.parse(JSON.stringify(geoJsonBefore)),{
-				style: function () {
-					return {color: cor};
-				},
-				onEachFeature:function (f,l){
-					
-					l.on('click', function(e){
-						htmlPopup="<table>";
-							for(var key in e.target.feature.properties){
-							   if (e.target.feature.properties.hasOwnProperty(key)) {
-									htmlPopup+=" <tr><th>"+key+"</th><td>"+e.target.feature.properties[key]+"</td></tr>";
-							   }
-							}
-							htmlPopup+="</table>";
-							l.bindPopup(htmlPopup);
-						})
-				}
-			}).addTo(m);
 		}
 
 		//More info: https://developer.mozilla.org/en-US/docs/Web/API/FileReader

@@ -12,61 +12,11 @@ import javax.faces.context.FacesContext;
 import org.hibernate.HibernateException;
 
 import br.com.TCCMapa.model.Usuario;
-import br.com.TCCMapa.model.UsuarioShpImport;
 import br.com.TCCMapa.utils.ConnectionManager;
 
 public class ArquivosDAO {
 
 	private UsuarioDAO usuarioDao = new UsuarioDAO();
-	
-	
-	public int salvarShp(String geoJson,String indice,int idInserido) {
-		PreparedStatement ps = null;
-		Usuario usuarioLogado = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
-    	String nomeUsuario = usuarioLogado.getNomeUsuario();
-		try {
-			ConnectionManager connectionManager = new ConnectionManager();
-			Connection conn = connectionManager.getConnection();
-			
-			int proximoId = 0;
-			
-			if(indice=="1") {
-				proximoId = this.getNextIdShpImport();
-				ps = conn.prepareStatement("insert into UsuarioShpImport (id,primeiraparte,usuario) values (?,?,?)");
-				ps.setInt(1, proximoId);
-				ps.setString(2,geoJson);
-				ps.setInt(3,usuarioDao.getUsuario(nomeUsuario).getId());
-				ps.executeUpdate();
-				ps.close();
-				return proximoId;
-			}else if(indice=="2") {
-				ps = conn.prepareStatement("update UsuarioShpImport set segundaparte=? where id=?");
-				ps.setString(1,geoJson);
-				ps.setInt(2,idInserido);
-				ps.executeUpdate();
-				ps.close();
-			}else if(indice=="3") {
-				ps = conn.prepareStatement("update UsuarioShpImport set terceiraparte=? where id=?");
-				ps.setString(1,geoJson);
-				ps.setInt(2,idInserido);
-				ps.executeUpdate();
-				ps.close();
-			}
-			
-		} catch (HibernateException ex) {
-			ex.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally{
-			try {
-				ps.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return 0;
-
-	}
 	
 	public void excluirGeoJsonUsuario() {
 		PreparedStatement ps = null;
@@ -76,7 +26,7 @@ public class ArquivosDAO {
 			ConnectionManager connectionManager = new ConnectionManager();
 			Connection conn = connectionManager.getConnection();
 			
-			ps = conn.prepareStatement("delete from UsuarioGeoFormas where usuario = ?");
+			ps = conn.prepareStatement("delete from usuarioGeoJsonLayers where usuario = ?");
 			ps.setInt(1,usuarioDao.getUsuario(nomeUsuario).getId());
 			ps.executeUpdate();
 			ps.close();
@@ -95,7 +45,7 @@ public class ArquivosDAO {
 		}
 	}
 	
-	public void salvarGeoJsonFormas(String geoJsonFormas) {
+	public void salvarGeoJsonLayer(String geoJsonLayer) {
 		PreparedStatement ps = null;
 		Usuario usuarioLogado = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
     	String nomeUsuario = usuarioLogado.getNomeUsuario();
@@ -103,8 +53,8 @@ public class ArquivosDAO {
 			ConnectionManager connectionManager = new ConnectionManager();
 			Connection conn = connectionManager.getConnection();
 			
-			ps = conn.prepareStatement("insert into UsuarioGeoFormas (id,geojsonformas,usuario) values (nextVal('formas_seq'),?,?)");
-			ps.setString(1,geoJsonFormas);
+			ps = conn.prepareStatement("insert into usuarioGeoJsonLayers (id,geoJsonLayer,usuario) values (nextVal('formas_seq'),?,?)");
+			ps.setString(1,geoJsonLayer);
 			ps.setInt(2,usuarioDao.getUsuario(nomeUsuario).getId());
 			ps.executeUpdate();
 			ps.close();
@@ -124,38 +74,6 @@ public class ArquivosDAO {
 
 	}
 	
-	public int getNextIdShpImport() {
-		PreparedStatement ps = null;
-		try {
-			ConnectionManager connectionManager = new ConnectionManager();
-			Connection conn = connectionManager.getConnection();
-			
-			ps = conn.prepareStatement("SELECT nextVal('shape_seq')");
-			ResultSet rs = ps.executeQuery();
-			if (rs != null) {
-				int nextVal = 0 ;
-			    while (rs.next()) {
-			    	nextVal = rs.getInt(1);
-			    }
-			    rs.close();
-			    return nextVal;
-			}
-			ps.close();
-
-		} catch (HibernateException ex) {
-			ex.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally{
-			try {
-				ps.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return 0;
-	}
-	
 	public List<String> obterGeoJsonFormas() {
 		PreparedStatement ps = null;
 		Usuario usuarioLogado = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
@@ -164,63 +82,20 @@ public class ArquivosDAO {
 			ConnectionManager connectionManager = new ConnectionManager();
 			Connection conn = connectionManager.getConnection();
 			
-			ps = conn.prepareStatement("SELECT geoJsonFormas FROM usuariogeoformas WHERE usuario = ?");
+			ps = conn.prepareStatement("SELECT geoJsonLayer FROM usuarioGeoJsonLayers WHERE usuario = ?");
 			ps.setInt(1, usuarioDao.getUsuario(nomeUsuario).getId());
 			ResultSet rs = ps.executeQuery();
-			List<String> listaGeoFormas = null;
+			List<String> listaGeoLayer = null;
 			if (rs != null) {
-				listaGeoFormas= new ArrayList<String>();
+				listaGeoLayer= new ArrayList<String>();
 			    while (rs.next()) {
-			    	listaGeoFormas.add(rs.getString(1));
+			    	listaGeoLayer.add(rs.getString(1));
 			    }
 			    rs.close();
-			    return listaGeoFormas;
+			    return listaGeoLayer;
 			}
 			ps.close();
 
-		} catch (HibernateException ex) {
-			ex.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally{
-			try {
-				ps.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return null;
-	}
-	
-	public List<UsuarioShpImport> obterShpImport() {
-		PreparedStatement ps = null;
-		Usuario usuarioLogado = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
-    	String nomeUsuario = usuarioLogado.getNomeUsuario();
-		try {
-			ConnectionManager connectionManager = new ConnectionManager();
-			Connection conn = connectionManager.getConnection();
-			
-			UsuarioShpImport shpImport;
-			List<UsuarioShpImport> listaShpImport;
-			
-			ps = conn.prepareStatement("SELECT primeiraparte,segundaparte,terceiraparte FROM usuarioshpimport WHERE usuario = ?");
-			ps.setInt(1, usuarioDao.getUsuario(nomeUsuario).getId());
-			ResultSet rs = ps.executeQuery();
-			if (rs != null) {
-				shpImport = new UsuarioShpImport();
-				listaShpImport = new ArrayList<UsuarioShpImport>();
-				while (rs.next()) {
-					shpImport.setPrimeiraParte(rs.getString(1));
-					shpImport.setSegundaParte(rs.getString(2));
-					shpImport.setTerceiraParte(rs.getString(3));
-					listaShpImport.add(shpImport);
-			    }
-			    rs.close();
-			    return listaShpImport;
-			}
-
-
-			
 		} catch (HibernateException ex) {
 			ex.printStackTrace();
 		} catch (SQLException e) {
