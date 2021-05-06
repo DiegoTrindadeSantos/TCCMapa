@@ -1,3 +1,6 @@
+var domtoimage = require('dom-to-image');
+var fileSaver = require('file-saver');
+
 L.Control.EasyPrint = L.Control.extend({
   options: {
     title: 'Print map',

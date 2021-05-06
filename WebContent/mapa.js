@@ -7,9 +7,6 @@ var attribution = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> c
 			 var myStyle = { // Define your style object
 			   "color": "#eeeeee"
 			};
-			 var shp1="";
-			 var shp2="";
-			 var shp3="";
 			 var drawnItems = new L.FeatureGroup();
 		        m.addLayer(drawnItems);
 
@@ -43,7 +40,9 @@ var attribution = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> c
 		        	  m.addControl(drawControl);
 
 		        m.on('draw:created', function (e) {
+		                var type = e.layerType,
 		                layer = e.layer;
+		                grupoLayer.addOverlay(layer, type);
 		            drawnItems.addLayer(layer);
 		        });
 		 
@@ -71,99 +70,26 @@ var attribution = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> c
 	      		hideControlContainer: true
 			}).addTo(m);
 
-
-		function iniciarMapa(){
-			attribution = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>';
-			indice = 0;
-			arrayLayers = [];
-		 	m = "";
-		 	m= L.map('map').setView([34.74161249883172,18.6328125], 2);
-
-			drawnItems = new L.FeatureGroup();
-		        m.addLayer(drawnItems);
-
-		        drawControl = new L.Control.Draw({
-		        	   draw: {
-		        	    polygon: {
-		        	     shapeOptions: {
-		        	      color: 'purple'
-		        	     },
-		        	    },
-		        	    polyline: {
-		        	     shapeOptions: {
-		        	      color: 'red'
-		        	     },
-		        	    },
-		        	    rect: {
-		        	     shapeOptions: {
-		        	      color: 'green'
-		        	     },
-		        	    },
-		        	    circle: {
-		        	     shapeOptions: {
-		        	      color: 'steelblue'
-		        	     },
-		        	    },
-		        	   },
-		        	   edit: {
-		        	    featureGroup: drawnItems
-		        	   }
-		        	  });
-		        	  m.addControl(drawControl);
-
-		       
-		 
-			mapnik = L.tileLayer(
-			        'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-			        , {attribution: attribution}
-			).addTo(m);
-		 
-			 blackAndWhite = L.tileLayer(
-			         'http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png'
-			         , {attribution: attribution}
-			 )
-		 
-			 baseMaps = {
-			       "Mapnik": mapnik, "Black and White": blackAndWhite
-			   };
-		 
-		 	grupoLayer = L.control.layers(baseMaps).addTo(m);
-		 	
-		 	 m.on('draw:created', function (e) {
-		            layer = e.layer;
-		            grupoLayer.addOverlay(layer,'layer'+indice);
-		            drawnItems.addLayer(layer);
-		            
-		        });
-		 	
-		 	printer = L.easyPrint({
-	      		tileLayer: mapnik,
-	      		sizeModes: ['Current', 'A4Landscape', 'A4Portrait'],
-	      		filename: 'myMap',
-	      		exportOnly: true,
-	      		hideControlContainer: true
-			}).addTo(m);
-		}
-		 	
 		function Add(file){
 			var files = file.files;
 			if (files.length == 0) {
 			   return; //do nothing if no file given yet
 			 }
 				 
-			 var file = files[0];
+			 var arquivo = files[0];
 			 
-			 if (file.name.slice(-3) != 'zip') { //Demo only tested for .zip. All others, return.
+			 if (arquivo.name.slice(-3) != 'zip') { //Demo only tested for .zip. All others, return.
 			   document.getElementById('warning').innerHTML = 'Select .zip file';
 			   return;
 			 } else {
 			   document.getElementById('warning').innerHTML = ''; //clear warning message.
-			   handleZipFile(file);
+			   handleZipFile(arquivo);
 			 }
 		}
 		
 		function Carregar(geoJsonFormas){
 			indice = indice+1;
+			var tipo;
 			var arrayCoresHexa= [
 				'#b01207',
 				'#099104',
@@ -181,7 +107,7 @@ var attribution = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> c
 				return {color: cor};
 			},
 			onEachFeature:function (f,l){
-				
+				tipo = f.geometry.type;
 				l.on('click', function(e){
 					htmlPopup="<table>";
 						for(var key in e.target.feature.properties){
@@ -194,17 +120,17 @@ var attribution = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> c
 					})
 				}
 			}).addTo(m);
-			grupoLayer.addOverlay(arrayLayers[indice],'layer'+indice);
+			grupoLayer.addOverlay(arrayLayers[indice],tipo);
 		}
 		
 		function Salvar(){
 			m.eachLayer(function(layer){
 				if(layer._bounds!=null && layer._leaflet_id!=null && layer._container!=null){
-					const layersInternos = layer._layers;
-					for(const indice in layersInternos){
+					var layersInternos = layer._layers;
+					for(var indice in layersInternos){
 					    console.log(layersInternos[indice].toGeoJSON());
 					    
-					    const geoJsonFormas = JSON.stringify(layersInternos[indice].toGeoJSON());
+					    var geoJsonFormas = JSON.stringify(layersInternos[indice].toGeoJSON());
  				
  						recebeJsonFormas([{ name:'geoJson', value : geoJsonFormas }]);
 					    
@@ -280,89 +206,4 @@ var attribution = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> c
 			grupoLayer.addOverlay(layerShp,'ShapeFile_'+arquivo);
 		}
 		
-		function rewind(gj, outer) {
-	          switch ((gj && gj.type) || null) {
-	              case 'FeatureCollection':
-	                  gj.features = gj.features.map(curryOuter(rewind, outer));
-	                  return gj;
-	              case 'Feature':
-	                  gj.geometry = rewind(gj.geometry, outer);
-	                  return gj;
-	              case 'Polygon':
-	              case 'MultiPolygon':
-	                  return correct(gj, outer);
-	              default:
-	                  return gj;
-	          }
-	      }
-	      function curryOuter(a, b) {
-	          return function(_) { return a(_, b); };
-	      }
-	      function correct(_, outer) {
-	          if (_.type === 'Polygon') {
-	              _.coordinates = correctRings(_.coordinates, outer);
-	          } else if (_.type === 'MultiPolygon') {
-	              _.coordinates = _.coordinates.map(curryOuter(correctRings, outer));
-	          }
-	          return _;
-	      }
-	      function correctRings(_, outer) {
-	          outer = !!outer;
-	          _[0] = wind(_[0], !outer);
-	          for (var i = 1; i < _.length; i++) {
-	              _[i] = wind(_[i], outer);
-	          }
-	          return _;
-	      }
-
-	      function wind(_, dir) {
-	          return cw(_) === dir ? _ : _.reverse();
-	      }
-
-	      function cw(_) {
-	          return ringArea(_) >= 0;
-	      }
-	      function geometry(_) {
-	          if (_.type === 'Polygon') return polygonArea(_.coordinates);
-	          else if (_.type === 'MultiPolygon') {
-	              var area = 0;
-	              for (var i = 0; i < _.coordinates.length; i++) {
-	                  area += polygonArea(_.coordinates[i]);
-	              }
-	              return area;
-	          } else {
-	              return null;
-	          }
-	      }
-
-	      function polygonArea(coords) {
-	          var area = 0;
-	          if (coords && coords.length > 0) {
-	              area += Math.abs(ringArea(coords[0]));
-	              for (var i = 1; i < coords.length; i++) {
-	                  area -= Math.abs(ringArea(coords[i]));
-	              }
-	          }
-	          return area;
-	      }
-
-	      function ringArea(coords) {
-	          var area = 0;
-
-	          if (coords.length > 2) {
-	              var p1, p2;
-	              for (var i = 0; i < coords.length - 1; i++) {
-	                  p1 = coords[i];
-	                  p2 = coords[i + 1];
-	                  area += rad(p2[0] - p1[0]) * (2 + Math.sin(rad(p1[1])) + Math.sin(rad(p2[1])));
-	              }
-
-	              area = area * 6378137 * 6378137 / 2;
-	          }
-
-	          return area;
-	      }
-
-	      function rad(_) {
-	          return _ * Math.PI / 180;
-	      }
+		

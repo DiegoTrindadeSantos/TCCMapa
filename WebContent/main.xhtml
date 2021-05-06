@@ -10,19 +10,21 @@
 <h:body>
   <h:form>
     <p:messages id="messages" />
-    <p:panelGrid columns="2">
+    <p:panelGrid columns="2" cellpadding="5" style="margin: 0 auto;">
       <p:outputLabel for="nomeUsuario" value="Nome Usuário:" />
       <p:inputText id="nomeUsuario" value="#{LoginMB.usuario.nomeUsuario}" />
        
       <p:outputLabel for="senha" value="Senha:" />
       <p:password id="senha" value="#{LoginMB.usuario.senha}" toggleMask="true" redisplay="true" />
        
-      <p:commandButton value="Enviar" icon="ui-icon-star" action="#{LoginMB.envia}" ajax="false">
+    </p:panelGrid>
+    <br/>
+    <p:panelGrid columns="2" cellpadding="5" style="margin: 0 auto; border: 0px">
+     <p:commandButton value="Enviar" icon="ui-icon-star" action="#{LoginMB.envia}" ajax="false">
       </p:commandButton>
       <p:commandButton value="Cadastrar" icon="ui-icon-star" action="#{LoginMB.cadastrar}" ajax="false">
       </p:commandButton>
- 
-    </p:panelGrid>
+      </p:panelGrid>
   </h:form>
 </h:body>
 </html>
