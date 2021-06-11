@@ -51,7 +51,7 @@ public class MapaManagedBean {
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
     
-    public String ManterUsuario() {
+    public String manterUsuario() {
     	return "/manterUsuario";
     }
 
