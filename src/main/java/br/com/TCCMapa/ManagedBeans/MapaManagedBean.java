@@ -50,6 +50,10 @@ public class MapaManagedBean {
     	FacesMessage msg = new FacesMessage("Salvo com sucesso.");
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
+    
+    public String ManterUsuario() {
+    	return "/manterUsuario";
+    }
 
 	public void handleFileUpload(FileUploadEvent event) {
 		FacesMessage msg = new FacesMessage("Successful", event.getFile().getFileName() + " is uploaded.");

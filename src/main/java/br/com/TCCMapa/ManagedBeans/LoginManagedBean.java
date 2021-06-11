@@ -22,7 +22,7 @@ public class LoginManagedBean {
 	      usuario = new Usuario();
 	      FacesContext.getCurrentInstance().addMessage(
 	         null,
-	         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário não encontrado!",
+	         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário não Encontrado ou Senha Incorreta!",
 	           "Erro no Login!"));
 	      return null;
 	    } else {
