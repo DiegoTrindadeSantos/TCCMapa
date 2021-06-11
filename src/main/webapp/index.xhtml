@@ -51,9 +51,8 @@ input {
 </h:head>
 <h:body>
 
-	<script src="bundle.js"></script>
-	<script src="index.js"></script>
-	<script src="teste.geojson"></script>
+	<script src="js/bundle.js"></script>
+	<script src="js/index.js"></script>
 
 	<h:form id="mapaForm" enctype="multipart/form-data">
 	
@@ -87,7 +86,7 @@ input {
 		<p:commandButton action="#{MapaMB.limparMapa}" value="Limpar o Mapa" update="messages"  >
         	<p:confirm header="Limpar" message="Tem certeza que deseja excluir todas as informações do mapa?" icon="pi pi-exclamation-triangle"/>
         </p:commandButton>
-		<script src="mapa.js"></script>
+		<script src="js/mapa.js"></script>
 	</h:form>
 </h:body>
 </html>

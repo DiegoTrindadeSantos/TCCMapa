@@ -128,7 +128,6 @@ var attribution = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> c
 				if(layer._bounds!=null && layer._leaflet_id!=null && layer._container!=null){
 					var layersInternos = layer._layers;
 					for(var indice in layersInternos){
-					    console.log(layersInternos[indice].toGeoJSON());
 					    
 					    var geoJsonFormas = JSON.stringify(layersInternos[indice].toGeoJSON());
  				
@@ -172,7 +171,6 @@ var attribution = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> c
 				var randomNumber = Math.floor(Math.random()*arrayCoresHexa.length);
 				var cor = arrayCoresHexa[randomNumber];
 				var htmlPopup;
-				
 				
 				arrayLayers[indice]=L.geoJson({features:[]},{onEachFeature:function (f,l){
 				
