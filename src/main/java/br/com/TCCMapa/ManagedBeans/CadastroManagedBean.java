@@ -1,5 +1,6 @@
 package br.com.TCCMapa.ManagedBeans;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -23,7 +24,9 @@ public class CadastroManagedBean {
 
     @PostConstruct
     public void init() {
-        this.usuarios = usuarioDao.listAll();
+    	Usuario usuarioLogado = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
+    	this.usuarios = new ArrayList<Usuario>();
+    	this.usuarios.add(usuarioLogado);
     }
 
     public void delete(Usuario usuario) {
