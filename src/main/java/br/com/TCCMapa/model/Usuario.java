@@ -1,5 +1,6 @@
 package br.com.TCCMapa.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -9,9 +10,14 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
   
 @Entity
-public class Usuario {
+public class Usuario implements Serializable {
        
-    @Id
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 5608762244425957351L;
+
+	@Id
     @Column(name="id", nullable=false, unique=true)
     private int id;
     

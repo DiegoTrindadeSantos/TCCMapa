@@ -22,6 +22,7 @@
 #map {
 	height: 400px;
 	z-index: 1;
+
 }
 
 input {
@@ -53,6 +54,9 @@ input {
 
 	<script src="js/bundle.js"></script>
 	<script src="js/index.js"></script>
+	<script src="js/shp.js"></script>
+	<script src="js/FileSaver.js"></script>
+	<script src="js/leaflet.shpfile.js"></script>
 
 	<h:form id="mapaForm" enctype="multipart/form-data">
 	
@@ -86,6 +90,7 @@ input {
 		<p:commandButton action="#{MapaMB.limparMapa}" value="Limpar o Mapa" update="messages"  >
         	<p:confirm header="Limpar" message="Tem certeza que deseja excluir todas as informações do mapa?" icon="pi pi-exclamation-triangle"/>
         </p:commandButton>
+        <p:commandButton id="alteraruser" value="Alterar Usuario" action="#{cadastroMB.manterUsuario}" />
 		<script src="js/mapa.js"></script>
 	</h:form>
 </h:body>

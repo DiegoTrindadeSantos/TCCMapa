@@ -1,0 +1,47 @@
+<html xmlns="http://www.w3.org/1999/xhtml" 
+ xmlns:h="http://java.sun.com/jsf/html" 
+ xmlns:f="http://java.sun.com/jsf/core" 
+ xmlns:p="http://primefaces.org/ui">
+  
+<h:head>
+  
+</h:head>
+  
+<h:body>
+  <h:form id="usuarios">
+   <p:growl id="messages" sticky="true" />
+   <p:dataTable id="userList" var="user" value="#{cadastroMB.usuarios}">
+      <p:column headerText="Id">
+         <h:outputText value="#{user.id}"/>
+      </p:column>
+		
+       <p:column headerText="Login">
+         <p:inputText id="nomeUsuario" value="#{user.nomeUsuario}"/>
+       </p:column>
+		
+	   <p:column headerText="Senha">
+         <p:password id="senha" value="#{user.senha}" redisplay="true" feedback="true" />
+       </p:column>
+		
+        <p:column>
+           <p:commandButton update="userList" value="Delete" icon="ui-icon-closethick"
+                        action="#{cadastroMB.delete(user)}"
+                        styleClass="ui-priority-primary">
+           </p:commandButton>
+        </p:column>
+     </p:dataTable>
+     <br/>
+     <p:commandButton style="float: right" id="save" value="Save" tyleClass="ui-priority-primary"
+                action="#{cadastroMB.update}" icon="ui-icon-disk" update="messages">
+         <f:ajax execute="@form" render="@form"/>
+     </p:commandButton>
+     
+      <h:panelGrid columns="1" cellpadding="5" style="margin: 0 auto; border:0px">
+    	<p:commandButton id="back" value="voltar" action="#{cadastroMB.voltar}" />
+    </h:panelGrid>
+</h:form>
+
+    
+   
+</h:body>
+</html>

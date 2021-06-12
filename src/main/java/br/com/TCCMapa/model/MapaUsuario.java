@@ -1,5 +1,7 @@
 package br.com.TCCMapa.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,7 +9,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class MapaUsuario {
+public class MapaUsuario implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6159025895631302641L;
 
 	@Id
     @Column(name="id", nullable=false, unique=true)

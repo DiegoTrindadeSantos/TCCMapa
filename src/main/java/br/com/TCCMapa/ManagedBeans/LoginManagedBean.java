@@ -14,6 +14,7 @@ public class LoginManagedBean {
 
 	private UsuarioDAO usuarioDAO = new UsuarioDAO();
 	private Usuario usuario = new Usuario();
+	private MapaManagedBean mapaMB = new MapaManagedBean();
 	   
 	  public String envia() {
 	         
@@ -26,7 +27,8 @@ public class LoginManagedBean {
 	           "Erro no Login!"));
 	      return null;
 	    } else {
-	    	FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuarioLogado",usuario);  
+	    	FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuarioLogado",usuario);
+	    	mapaMB.init();
 	    	return "/manterMapa";
 	    }
 	         

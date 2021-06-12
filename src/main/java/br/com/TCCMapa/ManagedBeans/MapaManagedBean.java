@@ -1,8 +1,10 @@
 package br.com.TCCMapa.ManagedBeans;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -22,10 +24,13 @@ public class MapaManagedBean {
 	private UploadedFile file;
 	private ArquivosDAO arquivosDAO = new ArquivosDAO();
 	private ManterMapaDAO manterMapaDAO = new ManterMapaDAO();
-	public List<MapaUsuario> listaMapas;
+	public List<MapaUsuario> listaMapas = new ArrayList<MapaUsuario>();
 	public int idInserido;
 	
-	
+	@PostConstruct
+    public void init() {
+		this.listaMapas = manterMapaDAO.retornaListaMapaPorUsuario();
+    }
 
 	public UploadedFile getFile() {
         return file;
@@ -81,11 +86,15 @@ public class MapaManagedBean {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
     
-    public void listaMapa(){
-    	this.listaMapas = manterMapaDAO.retornaListaMapaPorUsuario();
-    }
-    
-    public String sair() {
+    public List<MapaUsuario> getListaMapas() {
+		return listaMapas;
+	}
+
+	public void setListaMapas(List<MapaUsuario> listaMapas) {
+		this.listaMapas = listaMapas;
+	}
+
+	public String sair() {
     	return "/main";
     }
 

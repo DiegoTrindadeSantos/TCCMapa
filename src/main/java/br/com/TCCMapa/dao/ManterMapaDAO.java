@@ -18,6 +18,7 @@ public class ManterMapaDAO {
             .createEntityManagerFactory("TCCMapa");
 	private EntityManager em = factory.createEntityManager();
 	
+	@SuppressWarnings("unchecked")
 	public List<MapaUsuario> retornaListaMapaPorUsuario(){
 
 		Usuario usuarioLogado = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
