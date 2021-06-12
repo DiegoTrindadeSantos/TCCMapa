@@ -80,10 +80,6 @@ public class MapaManagedBean {
     public String sair() {
     	return "/main";
     }
-    
-    public String manterUsuario() {
-    	return "/manterUsuario";
-    }
 
 	public int getIdInserido() {
 		return idInserido;

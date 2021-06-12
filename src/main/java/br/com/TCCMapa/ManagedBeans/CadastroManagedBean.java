@@ -24,9 +24,7 @@ public class CadastroManagedBean {
 
     @PostConstruct
     public void init() {
-    	Usuario usuarioLogado = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
     	this.usuarios = new ArrayList<Usuario>();
-    	this.usuarios.add(usuarioLogado);
     }
 
     public void delete(Usuario usuario) {
@@ -41,6 +39,13 @@ public class CadastroManagedBean {
         this.usuarios = usuarioDao.listAll();
         this.usuario = new Usuario();
         
+    }
+    
+    public String manterUsuario () {
+    	Usuario usuarioLogado = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
+    	this.usuarios = new ArrayList<Usuario>();
+    	this.usuarios.add(usuarioLogado);
+    	return "/manterUsuario";
     }
     
     public void update() {
