@@ -10,7 +10,7 @@
 <h:body>
   <h:form id="mapas">
    <p:growl id="messages" sticky="true" />
-   <p:dataTable id="userList" var="map" value="#{mapaMB.listaMapas}">
+   <p:dataTable id="mapList" var="map" value="#{mapaMB.listaMapas}">
       <p:column headerText="Id">
          <h:outputText value="#{map.id}"/>
       </p:column>

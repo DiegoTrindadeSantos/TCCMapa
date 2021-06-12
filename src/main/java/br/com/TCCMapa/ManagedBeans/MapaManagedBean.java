@@ -86,6 +86,11 @@ public class MapaManagedBean {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
     
+    public String listarMapas() {
+    	this.listaMapas = manterMapaDAO.retornaListaMapaPorUsuario();
+    	return "/manterMapa";
+    }
+    
     public List<MapaUsuario> getListaMapas() {
 		return listaMapas;
 	}
