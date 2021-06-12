@@ -27,7 +27,7 @@ public class LoginManagedBean {
 	      return null;
 	    } else {
 	    	FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuarioLogado",usuario);  
-	    	return "/index";
+	    	return "/manterMapa";
 	    }
 	         
 	         

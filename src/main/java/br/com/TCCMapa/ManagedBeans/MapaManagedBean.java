@@ -13,12 +13,16 @@ import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 import br.com.TCCMapa.dao.ArquivosDAO;
+import br.com.TCCMapa.dao.ManterMapaDAO;
+import br.com.TCCMapa.model.MapaUsuario;
 
 @ManagedBean(name = "MapaMB")
 @SessionScoped
 public class MapaManagedBean {
 	private UploadedFile file;
 	private ArquivosDAO arquivosDAO = new ArquivosDAO();
+	private ManterMapaDAO manterMapaDAO = new ManterMapaDAO();
+	public List<MapaUsuario> listaMapas;
 	public int idInserido;
 	
 	
@@ -75,6 +79,10 @@ public class MapaManagedBean {
     public void addMessage(String summary) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
         FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+    
+    public void listaMapa(){
+    	this.listaMapas = manterMapaDAO.retornaListaMapaPorUsuario();
     }
     
     public String sair() {

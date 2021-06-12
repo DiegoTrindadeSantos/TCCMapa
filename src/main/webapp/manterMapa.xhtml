@@ -1,0 +1,53 @@
+<html xmlns="http://www.w3.org/1999/xhtml" 
+ xmlns:h="http://java.sun.com/jsf/html" 
+ xmlns:f="http://java.sun.com/jsf/core" 
+ xmlns:p="http://primefaces.org/ui">
+  
+<h:head>
+  
+</h:head>
+  
+<h:body>
+  <h:form id="mapas">
+   <p:growl id="messages" sticky="true" />
+   <p:dataTable id="userList" var="map" value="#{mapaMB.listaMapa}">
+      <p:column headerText="Id">
+         <h:outputText value="#{map.id}"/>
+      </p:column>
+		
+       <p:column headerText="nome">
+         <p:inputText id="nome" value="#{map.nomeMapa}"/>
+       </p:column>
+		
+        <p:column>
+           <p:commandButton update="userList" value="Delete" icon="ui-icon-closethick"
+                        action="#{cadastroMB.delete(user)}"
+                        styleClass="ui-priority-primary">
+           </p:commandButton>
+        </p:column>
+     </p:dataTable>
+     <br/>
+</h:form>
+
+<!-- <h:form id="add">
+    <h:panelGrid columns="3" cellpadding="5" style="margin: 0 auto;">
+    	<p:growl id="messages" sticky="true" />
+        <p:outputLabel for="nomeUsuario" value="Login" />
+        <p:inputText id="nomeUsuario" value="#{cadastroMB.usuario.nomeUsuario}" />
+        <p:message for="nomeUsuario" />
+ 
+        <p:outputLabel for="senha" value="Senha" />
+        <p:password id="senha" value="#{cadastroMB.usuario.senha}" feedback="true"/>
+        <p:message for="senha" />
+ 
+        <p:commandButton update="@form :usuarios:userList messages" value="Add" action="#{cadastroMB.add}" >
+        </p:commandButton>
+    </h:panelGrid>
+    
+    <h:panelGrid columns="1" cellpadding="5" style="margin: 0 auto; border:0px">
+    	<p:commandButton id="back" value="voltar" action="#{cadastroMB.voltar}" />
+    </h:panelGrid>
+</h:form>
+-->
+</h:body>
+</html>

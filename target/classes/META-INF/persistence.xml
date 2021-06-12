@@ -12,6 +12,7 @@
     
     <!-- entidade mapeada -->
     <class>br.com.TCCMapa.model.Usuario</class>
+    <class>br.com.TCCMapa.model.MapaUsuario</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" /> <!-- DB Driver -->
