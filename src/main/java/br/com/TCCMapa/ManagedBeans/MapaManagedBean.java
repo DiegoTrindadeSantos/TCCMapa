@@ -51,10 +51,6 @@ public class MapaManagedBean {
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
     
-    public String manterUsuario() {
-    	return "/manterUsuario";
-    }
-
 	public void handleFileUpload(FileUploadEvent event) {
 		FacesMessage msg = new FacesMessage("Successful", event.getFile().getFileName() + " is uploaded.");
         FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -83,6 +79,10 @@ public class MapaManagedBean {
     
     public String sair() {
     	return "/main";
+    }
+    
+    public String manterUsuario() {
+    	return "/manterUsuario";
     }
 
 	public int getIdInserido() {
