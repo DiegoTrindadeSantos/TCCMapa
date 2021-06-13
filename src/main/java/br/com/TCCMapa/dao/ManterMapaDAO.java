@@ -60,6 +60,18 @@ public class ManterMapaDAO {
         }
 	}
 	
+	 public boolean deletarMapaUsuario(MapaUsuario mapaUsuario) {
+		try {
+			em.getTransaction().begin();  
+			em.remove(mapaUsuario);
+			em.getTransaction().commit();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+   }
+	
 	public int getNextIdMapaUsuario() {
 		PreparedStatement ps = null;
 		try {

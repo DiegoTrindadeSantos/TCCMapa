@@ -12,13 +12,10 @@ import javax.faces.context.FacesContext;
 import org.hibernate.HibernateException;
 
 import br.com.TCCMapa.model.MapaUsuario;
-import br.com.TCCMapa.model.Usuario;
 import br.com.TCCMapa.utils.ConnectionManager;
 
 public class ArquivosDAO {
 
-	private UsuarioDAO usuarioDao = new UsuarioDAO();
-	
 	public void excluirGeoJsonUsuario() {
 		PreparedStatement ps = null;
 		MapaUsuario mapaUsuario = (MapaUsuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("mapaUsuario");

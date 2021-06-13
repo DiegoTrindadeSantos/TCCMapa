@@ -20,8 +20,12 @@
        </p:column>
 		
         <p:column>
-           <p:commandButton value="Editar" icon="ui-icon-gear"
+           <p:commandButton value="Editar Mapa" icon="ui-icon-gear"
                         action="#{LoginMB.edit(map)}" ajax="false"
+                        styleClass="ui-priority-primary">
+           </p:commandButton>
+           <p:commandButton value="Deletar Mapa" icon="ui-icon-gear"
+                        action="#{userMapMB.delete(map)}" 
                         styleClass="ui-priority-primary">
            </p:commandButton>
         </p:column>
@@ -41,7 +45,7 @@
     </h:panelGrid>
     
     <h:panelGrid columns="1" cellpadding="5" style="margin: 0 auto; border:0px">
-    	<p:commandButton id="back" value="voltar" action="#{cadastroMB.voltar}" />
+    	<p:commandButton id="exit" value="Sair" action="#{MapaMB.sair}" />
     </h:panelGrid>
 </h:form>
 

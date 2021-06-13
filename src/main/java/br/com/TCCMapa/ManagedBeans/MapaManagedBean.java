@@ -102,6 +102,10 @@ public class MapaManagedBean {
 	public String sair() {
     	return "/main";
     }
+	
+	public String voltar() {
+    	return "/manterMapa";
+    }
 
 	public int getIdInserido() {
 		return idInserido;

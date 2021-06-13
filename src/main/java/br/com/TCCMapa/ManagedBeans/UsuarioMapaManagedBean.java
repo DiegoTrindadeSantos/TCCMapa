@@ -11,6 +11,7 @@ import javax.faces.context.FacesContext;
 
 import br.com.TCCMapa.dao.ManterMapaDAO;
 import br.com.TCCMapa.model.MapaUsuario;
+import br.com.TCCMapa.model.Usuario;
 
 @ManagedBean(name = "userMapMB")
 @RequestScoped
@@ -32,6 +33,11 @@ public class UsuarioMapaManagedBean {
         this.listaMapas = manterMapaDAO.retornaListaMapaPorUsuario();
         this.mapaUsuario = new MapaUsuario();
         
+    }
+	
+	public void delete(MapaUsuario mapaUsuario) {
+		manterMapaDAO.deletarMapaUsuario(mapaUsuario);
+		listaMapas.remove(mapaUsuario);
     }
 
 	public ManterMapaDAO getManterMapaDAO() {
