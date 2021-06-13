@@ -70,7 +70,7 @@ public class ManterMapaDAO {
 	
 	public int getNextIdMapaUsuario() {
 		try {
-			Query query = em.createNativeQuery("SELECT nextVal('mapausuario_seq')");
+			Query query = em.createNativeQuery("SELECT nextVal('mapausuario_seq')",Integer.class);
 			int retorno = (Integer) query.getSingleResult();
 			return retorno;
 
