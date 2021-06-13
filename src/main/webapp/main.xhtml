@@ -8,23 +8,34 @@
 </h:head>
   
 <h:body>
-  <h:form>
-    <p:messages id="messages" />
-    <p:panelGrid columns="2" cellpadding="5" style="margin: 0 auto;">
-      <p:outputLabel for="nomeUsuario" value="Nome Usuário:" />
-      <p:inputText id="nomeUsuario" value="#{LoginMB.usuario.nomeUsuario}" />
-       
-      <p:outputLabel for="senha" value="Senha:" />
-      <p:password id="senha" value="#{LoginMB.usuario.senha}" toggleMask="true" redisplay="true" />
-       
-    </p:panelGrid>
-    <br/>
-    <p:panelGrid columns="2" cellpadding="5" style="margin: 0 auto; border: 0px">
-     <p:commandButton value="Enviar" icon="ui-icon-star" action="#{LoginMB.envia}" ajax="false">
-      </p:commandButton>
-      <p:commandButton value="Cadastrar" icon="ui-icon-star" action="#{LoginMB.cadastrar}" ajax="false">
-      </p:commandButton>
-      </p:panelGrid>
-  </h:form>
+
+<p:layout fullPage="true">
+	<p:layoutUnit position="north" size="130" header="Topo">
+	
+	</p:layoutUnit>
+	<p:layoutUnit position="west" resizable="true" collapsible="true" header="Menu" size="230">
+		
+	</p:layoutUnit>
+	<p:layoutUnit position="center" size="130" header="Topo">
+		  <h:form>
+		    <p:messages id="messages" />
+		    <p:panelGrid columns="2" cellpadding="5" style="margin: 0 auto;">
+		      <p:outputLabel for="nomeUsuario" value="Nome Usuário:" />
+		      <p:inputText id="nomeUsuario" value="#{LoginMB.usuario.nomeUsuario}" />
+		       
+		      <p:outputLabel for="senha" value="Senha:" />
+		      <p:password id="senha" value="#{LoginMB.usuario.senha}" toggleMask="true" redisplay="true" />
+		       
+		    </p:panelGrid>
+		    <br/>
+		    <p:panelGrid columns="2" cellpadding="5" style="margin: 0 auto; border: 0px">
+		     <p:commandButton value="Enviar" icon="ui-icon-star" action="#{LoginMB.envia}" ajax="false">
+		      </p:commandButton>
+		      <p:commandButton value="Cadastrar" icon="ui-icon-star" action="#{LoginMB.cadastrar}" ajax="false">
+		      </p:commandButton>
+		      </p:panelGrid>
+		  </h:form>
+		  </p:layoutUnit>
+  </p:layout>
 </h:body>
 </html>
