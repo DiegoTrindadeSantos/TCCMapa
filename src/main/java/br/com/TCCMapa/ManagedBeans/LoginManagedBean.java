@@ -14,9 +14,8 @@ public class LoginManagedBean {
 
 	private UsuarioDAO usuarioDAO = new UsuarioDAO();
 	private Usuario usuario = new Usuario();
-	private MapaManagedBean mapaMB = new MapaManagedBean();
 	   
-	  public void envia() {
+	  public String envia() {
 	         
 	    usuario = usuarioDAO.getUsuario(usuario.getNomeUsuario(), usuario.getSenha());
 	    if (usuario == null) {
@@ -25,9 +24,10 @@ public class LoginManagedBean {
 	         null,
 	         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário não Encontrado ou Senha Incorreta!",
 	           "Erro no Login!"));
+	      return null;
 	    } else {
 	    	FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuarioLogado",usuario);
-	    	mapaMB.listarMapas();
+	    	return "/manterMapa";
 	    }
 	         
 	         
