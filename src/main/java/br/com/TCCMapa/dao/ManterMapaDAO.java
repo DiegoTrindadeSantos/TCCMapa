@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 import org.hibernate.HibernateException;
 
@@ -73,33 +74,14 @@ public class ManterMapaDAO {
    }
 	
 	public int getNextIdMapaUsuario() {
-		PreparedStatement ps = null;
 		try {
-			ConnectionManager connectionManager = new ConnectionManager();
-			Connection conn = connectionManager.getConnection();
-			
-			ps = conn.prepareStatement("SELECT nextVal('mapausuario_seq')");
-			ResultSet rs = ps.executeQuery();
-			if (rs != null) {
-				int nextVal = 0 ;
-			    while (rs.next()) {
-			    	nextVal = rs.getInt(1);
-			    }
-			    rs.close();
-			    return nextVal;
-			}
-			ps.close();
+			Query query = em.createNativeQuery("SELECT nextVal('mapausuario_seq')");
+			return (int) query.getSingleResult();
 
 		} catch (HibernateException ex) {
 			ex.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
 		}finally{
-			try {
-				ps.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			em.close();
 		}
 		return 0;
 	}
