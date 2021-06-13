@@ -24,25 +24,25 @@ public class MapaLayerDAO {
 	public void excluirMapaLayerForMapaId() {
 		MapaUsuario mapaUsuario = (MapaUsuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("mapaUsuario");
 		try {
-			MapaLayers mapaLayer = this.obterMapaLayerPorMapaId(mapaUsuario);
-			if(mapaLayer!=null) {
-				em.getTransaction().begin();
-				em.remove(mapaLayer);
-				em.getTransaction().commit();
+			List<MapaLayers> mapaLayer = this.obterMapaLayersPorMapaId(mapaUsuario);
+			em.getTransaction().begin();
+			for (MapaLayers mapaLayers : mapaLayer) {
+				em.remove(mapaLayers);
 			}
+			em.getTransaction().commit();
 		} catch (Exception e) {
 		    e.printStackTrace();
 		}
 	    
 	}
 
-	public MapaLayers obterMapaLayerPorMapaId(MapaUsuario mapaId) {
+	public List<MapaLayers> obterMapaLayersPorMapaId(MapaUsuario mapaId) {
 		
 		try {
-			MapaLayers mapa = (MapaLayers) em
-				.createQuery("Select m from MapaLayers m where m.mapaUsuario = :mapaId")
-				.setParameter("mapaId", mapaId).getSingleResult();
-			return mapa;
+			List<MapaLayers> listaMapas = em
+				.createQuery("Select m from MapaLayers m where m.mapaUsuario = :mapaId", MapaLayers.class)
+				.setParameter("mapaId", mapaId).getResultList();
+			return listaMapas;
 			
 		} catch (Exception e) {
 			e.printStackTrace();
