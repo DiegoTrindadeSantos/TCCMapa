@@ -6,15 +6,14 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
 import br.com.TCCMapa.dao.ManterMapaDAO;
 import br.com.TCCMapa.model.MapaUsuario;
-import br.com.TCCMapa.model.Usuario;
 
 @ManagedBean(name = "userMapMB")
-@SessionScoped
+@RequestScoped
 public class UsuarioMapaManagedBean {
 	private ManterMapaDAO manterMapaDAO = new ManterMapaDAO();
 	public List<MapaUsuario> listaMapas = new ArrayList<MapaUsuario>();

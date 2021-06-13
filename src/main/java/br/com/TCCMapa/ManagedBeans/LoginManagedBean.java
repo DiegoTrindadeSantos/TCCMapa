@@ -5,6 +5,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
+import br.com.TCCMapa.dao.ManterMapaDAO;
 import br.com.TCCMapa.dao.UsuarioDAO;
 import br.com.TCCMapa.model.Usuario;
 
@@ -14,6 +15,8 @@ public class LoginManagedBean {
 
 	private UsuarioDAO usuarioDAO = new UsuarioDAO();
 	private Usuario usuario = new Usuario();
+	public UsuarioMapaManagedBean userMapMB = new UsuarioMapaManagedBean();
+	private ManterMapaDAO manterMapaDAO = new ManterMapaDAO();
 	   
 	  public String envia() {
 	         
@@ -27,6 +30,7 @@ public class LoginManagedBean {
 	      return null;
 	    } else {
 	    	FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuarioLogado",usuario);
+	    	userMapMB.setListaMapas(manterMapaDAO.retornaListaMapaPorUsuario());
 	    	return "/manterMapa";
 	    }
 	         
