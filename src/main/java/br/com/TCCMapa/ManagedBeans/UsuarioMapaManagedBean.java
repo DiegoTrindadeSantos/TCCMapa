@@ -25,7 +25,7 @@ public class UsuarioMapaManagedBean {
     }
 	
 	public String edit(MapaUsuario mapaUsuario) {
-		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("mapaUsuario",mapaUsuario);
+		//FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("mapaUsuario",mapaUsuario);
 		return "/index";
 	}
 	
