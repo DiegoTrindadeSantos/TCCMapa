@@ -1,5 +1,6 @@
 package br.com.TCCMapa.dao;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,9 +71,9 @@ public class ManterMapaDAO {
 	
 	public int getNextIdMapaUsuario() {
 		try {
-			Query query = em.createNativeQuery("SELECT nextVal('mapausuario_seq')",Integer.class);
-			int retorno = (Integer) query.getSingleResult();
-			return retorno;
+			Query query = em.createNativeQuery("SELECT nextVal('mapausuario_seq')");
+			BigInteger retorno = (BigInteger) query.getSingleResult();
+			return retorno.intValue();
 
 		} catch (HibernateException ex) {
 			ex.printStackTrace();
