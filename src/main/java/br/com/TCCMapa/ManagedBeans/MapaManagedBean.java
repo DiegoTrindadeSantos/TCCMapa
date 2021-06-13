@@ -14,7 +14,7 @@ import org.primefaces.PrimeFaces;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
-import br.com.TCCMapa.dao.ArquivosDAO;
+import br.com.TCCMapa.dao.MapaLayerDAO;
 import br.com.TCCMapa.dao.ManterMapaDAO;
 import br.com.TCCMapa.model.MapaUsuario;
 
@@ -22,7 +22,7 @@ import br.com.TCCMapa.model.MapaUsuario;
 @SessionScoped
 public class MapaManagedBean {
 	private UploadedFile file;
-	private ArquivosDAO arquivosDAO = new ArquivosDAO();
+	private MapaLayerDAO arquivosDAO = new MapaLayerDAO();
 	private ManterMapaDAO manterMapaDAO = new ManterMapaDAO();
 	public List<MapaUsuario> listaMapas = new ArrayList<MapaUsuario>();
 	public int idInserido;
@@ -50,11 +50,11 @@ public class MapaManagedBean {
     public void recebeJsonFormas() {
     	Map<String, String> requestParamMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
     	String geoJson = requestParamMap.get("geoJson");
-    	arquivosDAO.salvarGeoJsonLayer(geoJson);
+    	arquivosDAO.salvarMapaLayer(geoJson);
     }
     
     public void salvar() {
-    	arquivosDAO.excluirGeoJsonUsuario();
+    	arquivosDAO.excluirMapaLayerForMapaId();
     	PrimeFaces.current().executeScript("Salvar()");
     	FacesMessage msg = new FacesMessage("Salvo com sucesso.");
         FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -66,16 +66,16 @@ public class MapaManagedBean {
     }
     
     public void carregar() {
-        List<String> listaGeoFormas = arquivosDAO.obterGeoJsonFormas();
-        for (String geoForma : listaGeoFormas) {
-        	PrimeFaces.current().executeScript("Carregar('"+geoForma+"')");			
+        List<String> listaLayers = arquivosDAO.listarLayersPorMapaId();
+        for (String layer : listaLayers) {
+        	PrimeFaces.current().executeScript("Carregar('"+layer+"')");			
 		}
         FacesMessage msg = new FacesMessage("Carregado com sucesso.");
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
     
     public String limparMapa() {
-    	arquivosDAO.excluirGeoJsonUsuario();
+    	arquivosDAO.excluirMapaLayerForMapaId();
     	FacesMessage msg = new FacesMessage("Todas as informações foram excluídas.");
         FacesContext.getCurrentInstance().addMessage(null, msg);
     	return "/main";

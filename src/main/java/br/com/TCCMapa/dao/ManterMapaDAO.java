@@ -6,21 +6,22 @@ import java.util.List;
 
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 import org.hibernate.HibernateException;
 
 import br.com.TCCMapa.model.MapaUsuario;
 import br.com.TCCMapa.model.Usuario;
+import br.com.TCCMapa.utils.ConnectionFactory;
 
 public class ManterMapaDAO {
 
-	private EntityManagerFactory factory = Persistence
-            .createEntityManagerFactory("TCCMapa");
-	private EntityManager em = factory.createEntityManager();
+	private EntityManager em;
+	
+	public ManterMapaDAO() {
+		this.em = ConnectionFactory.getConnection();
+	}
 	
 	@SuppressWarnings("unchecked")
 	public List<MapaUsuario> retornaListaMapaPorUsuario(){

@@ -11,7 +11,6 @@ import javax.faces.context.FacesContext;
 
 import br.com.TCCMapa.dao.ManterMapaDAO;
 import br.com.TCCMapa.model.MapaUsuario;
-import br.com.TCCMapa.model.Usuario;
 
 @ManagedBean(name = "userMapMB")
 @RequestScoped
