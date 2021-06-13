@@ -1,9 +1,5 @@
 package br.com.TCCMapa.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +14,6 @@ import org.hibernate.HibernateException;
 
 import br.com.TCCMapa.model.MapaUsuario;
 import br.com.TCCMapa.model.Usuario;
-import br.com.TCCMapa.utils.ConnectionManager;
 
 public class ManterMapaDAO {
 
@@ -76,7 +71,8 @@ public class ManterMapaDAO {
 	public int getNextIdMapaUsuario() {
 		try {
 			Query query = em.createNativeQuery("SELECT nextVal('mapausuario_seq')");
-			return (int) query.getSingleResult();
+			int retorno = (Integer) query.getSingleResult();
+			return retorno;
 
 		} catch (HibernateException ex) {
 			ex.printStackTrace();
