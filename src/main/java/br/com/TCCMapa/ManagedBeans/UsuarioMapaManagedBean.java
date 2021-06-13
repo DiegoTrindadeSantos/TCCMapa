@@ -18,15 +18,16 @@ public class UsuarioMapaManagedBean {
 	private ManterMapaDAO manterMapaDAO = new ManterMapaDAO();
 	public List<MapaUsuario> listaMapas = new ArrayList<MapaUsuario>();
 	public MapaUsuario mapaUsuario = new MapaUsuario();
+	public LoginManagedBean loginMB = new LoginManagedBean();
 	
 	@PostConstruct
     public void init() {
 		this.listaMapas = manterMapaDAO.retornaListaMapaPorUsuario();
     }
 	
-	public String edit(MapaUsuario mapaUsuario) {
-		//FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("mapaUsuario",mapaUsuario);
-		return "/index";
+	public void edit(MapaUsuario mapaUsuario) {
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("mapaUsuario",mapaUsuario);
+		loginMB.editar();
 	}
 	
 	public void add() {
