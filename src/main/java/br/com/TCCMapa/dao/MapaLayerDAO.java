@@ -24,7 +24,7 @@ public class MapaLayerDAO {
 	public void excluirMapaLayerForMapaId() {
 		MapaUsuario mapaUsuario = (MapaUsuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("mapaUsuario");
 		try {
-			MapaLayers mapaLayer = this.obterMapaLayerPorMapaId(mapaUsuario.getId());
+			MapaLayers mapaLayer = this.obterMapaLayerPorMapaId(mapaUsuario);
 			if(mapaLayer!=null) {
 				em.getTransaction().begin();
 				em.remove(mapaLayer);
@@ -36,7 +36,7 @@ public class MapaLayerDAO {
 	    
 	}
 
-	public MapaLayers obterMapaLayerPorMapaId(Integer mapaId) {
+	public MapaLayers obterMapaLayerPorMapaId(MapaUsuario mapaId) {
 		
 		try {
 			MapaLayers mapa = (MapaLayers) em
