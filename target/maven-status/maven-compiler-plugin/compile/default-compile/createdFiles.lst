@@ -1,9 +1,11 @@
+br\com\TCCMapa\dao\ManterMapaDAO.class
+br\com\TCCMapa\utils\ConnectionFactory.class
+br\com\TCCMapa\dao\MapaLayerDAO.class
 br\com\TCCMapa\model\Usuario.class
+br\com\TCCMapa\model\MapaLayers.class
 br\com\TCCMapa\ManagedBeans\CadastroManagedBean.class
-br\com\TCCMapa\utils\GeradorMapaHtml.class
 br\com\TCCMapa\ManagedBeans\MapaManagedBean.class
+br\com\TCCMapa\ManagedBeans\UsuarioMapaManagedBean.class
 br\com\TCCMapa\ManagedBeans\LoginManagedBean.class
+br\com\TCCMapa\model\MapaUsuario.class
 br\com\TCCMapa\dao\UsuarioDAO.class
-br\com\TCCMapa\Pojos\Mapa.class
-br\com\TCCMapa\utils\ConnectionManager.class
-br\com\TCCMapa\dao\ArquivosDAO.class
