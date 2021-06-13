@@ -76,7 +76,7 @@ public class MapaLayerDAO {
 		try {
 			
 			List<String> layers = em.createQuery(
-					"Select m.geoJsonLayer from MapaLayer m where m.mapaUsuario = :mapaId",String.class)
+					"Select m.geoJsonLayer from MapaLayers m where m.mapaUsuario = :mapaId",String.class)
 					.setParameter("mapaId", mapaUsuario.getId()).getResultList();
 		    return layers;
 
