@@ -6,6 +6,7 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
 import br.com.TCCMapa.dao.UsuarioDAO;
+import br.com.TCCMapa.model.MapaUsuario;
 import br.com.TCCMapa.model.Usuario;
 
 @ManagedBean(name = "LoginMB")
@@ -16,7 +17,7 @@ public class LoginManagedBean {
 	private Usuario usuario = new Usuario();
 	   
 	  public String envia() {
-	         
+	    
 	    usuario = usuarioDAO.getUsuario(usuario.getNomeUsuario(), usuario.getSenha());
 	    if (usuario == null) {
 	      usuario = new Usuario();
@@ -33,9 +34,10 @@ public class LoginManagedBean {
 	         
 	  }
 	  
-	  public String editar() {
-		  return "/index";
-	  }
+	public String edit(MapaUsuario mapaUsuario) {
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("mapaUsuario",mapaUsuario);
+		return "/index";
+	}	  
 	  
 	  public String cadastrar() {
 		  return "/cadastrar";

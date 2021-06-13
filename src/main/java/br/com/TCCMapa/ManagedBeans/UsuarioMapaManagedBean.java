@@ -25,11 +25,6 @@ public class UsuarioMapaManagedBean {
 		this.listaMapas = manterMapaDAO.retornaListaMapaPorUsuario();
     }
 	
-	public void edit(MapaUsuario mapaUsuario) {
-		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("mapaUsuario",mapaUsuario);
-		loginMB.editar();
-	}
-	
 	public void add() {
 		manterMapaDAO.inserirMapaUsuario(mapaUsuario);
     	FacesMessage message = new FacesMessage("Mapa "+ mapaUsuario.getNomeMapa() + " adicionado com sucesso.");
