@@ -14,7 +14,6 @@ public class LoginManagedBean {
 
 	private UsuarioDAO usuarioDAO = new UsuarioDAO();
 	private Usuario usuario = new Usuario();
-	public UsuarioMapaManagedBean userMapMB = new UsuarioMapaManagedBean();
 	   
 	  public String envia() {
 	         
