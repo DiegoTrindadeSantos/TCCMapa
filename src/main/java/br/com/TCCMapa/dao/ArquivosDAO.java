@@ -11,6 +11,7 @@ import javax.faces.context.FacesContext;
 
 import org.hibernate.HibernateException;
 
+import br.com.TCCMapa.model.MapaUsuario;
 import br.com.TCCMapa.model.Usuario;
 import br.com.TCCMapa.utils.ConnectionManager;
 
@@ -20,14 +21,13 @@ public class ArquivosDAO {
 	
 	public void excluirGeoJsonUsuario() {
 		PreparedStatement ps = null;
-		Usuario usuarioLogado = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
-    	String nomeUsuario = usuarioLogado.getNomeUsuario();
+		MapaUsuario mapaUsuario = (MapaUsuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("mapaUsuario");
 		try {
 			ConnectionManager connectionManager = new ConnectionManager();
 			Connection conn = connectionManager.getConnection();
 			
-			ps = conn.prepareStatement("delete from usuarioGeoJsonLayers where usuario = ?");
-			ps.setInt(1,usuarioDao.getUsuario(nomeUsuario).getId());
+			ps = conn.prepareStatement("delete from usuarioGeoJsonLayers where mapaId = ?");
+			ps.setInt(1,mapaUsuario.getId());
 			ps.executeUpdate();
 			ps.close();
 
@@ -47,15 +47,14 @@ public class ArquivosDAO {
 	
 	public void salvarGeoJsonLayer(String geoJsonLayer) {
 		PreparedStatement ps = null;
-		Usuario usuarioLogado = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
-    	String nomeUsuario = usuarioLogado.getNomeUsuario();
+		MapaUsuario mapaUsuario = (MapaUsuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("mapaUsuario");
 		try {
 			ConnectionManager connectionManager = new ConnectionManager();
 			Connection conn = connectionManager.getConnection();
 			
-			ps = conn.prepareStatement("insert into usuarioGeoJsonLayers (id,geoJsonLayer,usuario) values (nextVal('formas_seq'),?,?)");
+			ps = conn.prepareStatement("insert into usuarioGeoJsonLayers (id,geoJsonLayer,mapaId) values (nextVal('formas_seq'),?,?)");
 			ps.setString(1,geoJsonLayer);
-			ps.setInt(2,usuarioDao.getUsuario(nomeUsuario).getId());
+			ps.setInt(2,mapaUsuario.getId());
 			ps.executeUpdate();
 			ps.close();
 
@@ -76,14 +75,13 @@ public class ArquivosDAO {
 	
 	public List<String> obterGeoJsonFormas() {
 		PreparedStatement ps = null;
-		Usuario usuarioLogado = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
-    	String nomeUsuario = usuarioLogado.getNomeUsuario();
+		MapaUsuario mapaUsuario = (MapaUsuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("mapaUsuario");
 		try {
 			ConnectionManager connectionManager = new ConnectionManager();
 			Connection conn = connectionManager.getConnection();
 			
-			ps = conn.prepareStatement("SELECT geoJsonLayer FROM usuarioGeoJsonLayers WHERE usuario = ?");
-			ps.setInt(1, usuarioDao.getUsuario(nomeUsuario).getId());
+			ps = conn.prepareStatement("SELECT geoJsonLayer FROM usuarioGeoJsonLayers WHERE mapaId = ?");
+			ps.setInt(1, mapaUsuario.getId());
 			ResultSet rs = ps.executeQuery();
 			List<String> listaGeoLayer = null;
 			if (rs != null) {
