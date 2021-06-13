@@ -54,6 +54,16 @@ public class UsuarioMapaManagedBean {
 	public void setListaMapas(List<MapaUsuario> listaMapas) {
 		this.listaMapas = listaMapas;
 	}
+
+	public MapaUsuario getMapaUsuario() {
+		return mapaUsuario;
+	}
+
+	public void setMapaUsuario(MapaUsuario mapaUsuario) {
+		this.mapaUsuario = mapaUsuario;
+	}
+	
+	
 	
 	
 }
