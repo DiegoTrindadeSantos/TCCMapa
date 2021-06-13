@@ -30,8 +30,7 @@ public class LoginManagedBean {
 	      return null;
 	    } else {
 	    	FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuarioLogado",usuario);
-	    	userMapMB.setListaMapas(manterMapaDAO.retornaListaMapaPorUsuario());
-	    	return "/manterMapa";
+	    	return "/index";
 	    }
 	         
 	         
