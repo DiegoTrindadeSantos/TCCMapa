@@ -50,8 +50,9 @@ public class ManterMapaDAO {
             MapaUsuario newMapaUsuario = new MapaUsuario();
             newMapaUsuario.setId(this.getNextIdMapaUsuario());  
             newMapaUsuario.setNomeMapa(mapaUsuario.getNomeMapa());
-      	  em.persist(newMapaUsuario);
-      	  em.getTransaction().commit();
+            newMapaUsuario.setUsuario((Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado"));
+      	  	em.persist(newMapaUsuario);
+      	  	em.getTransaction().commit();
             return true;
         } catch (Exception e) {
               e.printStackTrace();
