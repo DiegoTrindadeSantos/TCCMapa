@@ -76,8 +76,6 @@ public class ManterMapaDAO {
 
 		} catch (HibernateException ex) {
 			ex.printStackTrace();
-		}finally{
-			em.close();
 		}
 		return 0;
 	}
