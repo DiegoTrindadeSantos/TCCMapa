@@ -10,7 +10,7 @@
 <h:body>
   <h:form id="mapas">
    <p:growl id="messages" sticky="true" />
-   <p:dataTable id="userList" var="map" value="#{userMapMB.listaMapas}">
+   <p:dataTable id="mapList" var="map" value="#{userMapMB.listaMapas}">
       <p:column headerText="Id">
          <h:outputText value="#{map.id}"/>
       </p:column>
@@ -20,8 +20,8 @@
        </p:column>
 		
         <p:column>
-           <p:commandButton update="userList" value="Delete" icon="ui-icon-closethick"
-                        action="#{cadastroMB.delete(user)}"
+           <p:commandButton update="userList" value="Editar" icon="ui-icon-gear"
+                        action="#{userMapMB.edit(map)}"
                         styleClass="ui-priority-primary">
            </p:commandButton>
         </p:column>
@@ -29,18 +29,14 @@
      <br/>
 </h:form>
 
-<!-- <h:form id="add">
+<h:form id="add">
     <h:panelGrid columns="3" cellpadding="5" style="margin: 0 auto;">
     	<p:growl id="messages" sticky="true" />
-        <p:outputLabel for="nomeUsuario" value="Login" />
-        <p:inputText id="nomeUsuario" value="#{cadastroMB.usuario.nomeUsuario}" />
-        <p:message for="nomeUsuario" />
+        <p:outputLabel for="nomeMapa" value="Nome do Mapa" />
+        <p:inputText id="nomeMapa" value="#{userMapMB.mapaUsuario.nomeMapa}" />
+        <p:message for="nomeMapa" />
  
-        <p:outputLabel for="senha" value="Senha" />
-        <p:password id="senha" value="#{cadastroMB.usuario.senha}" feedback="true"/>
-        <p:message for="senha" />
- 
-        <p:commandButton update="@form :usuarios:userList messages" value="Add" action="#{cadastroMB.add}" >
+        <p:commandButton update="@form :mapas:mapList messages" value="Adicionar" action="#{userMapMB.add}" >
         </p:commandButton>
     </h:panelGrid>
     
@@ -48,6 +44,6 @@
     	<p:commandButton id="back" value="voltar" action="#{cadastroMB.voltar}" />
     </h:panelGrid>
 </h:form>
--->
+
 </h:body>
 </html>
