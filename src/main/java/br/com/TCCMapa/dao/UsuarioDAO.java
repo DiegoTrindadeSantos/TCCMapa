@@ -58,7 +58,9 @@ public class UsuarioDAO {
  
   public boolean inserirUsuario(Usuario usuario) {
           try {
-              em.getTransaction().begin();
+              if(!em.getTransaction().isActive()) {
+            	  em.getTransaction().begin();
+              }
         	  Usuario newUsuario = new Usuario();
               newUsuario.setId(this.getNextIdUsuario());  
               newUsuario.setNomeUsuario(usuario.getNomeUsuario());
@@ -74,7 +76,9 @@ public class UsuarioDAO {
      
     public boolean deletarUsuario(Usuario usuario) {
           try {
-              em.getTransaction().begin();  
+        	  if(!em.getTransaction().isActive()) {
+            	  em.getTransaction().begin();
+              }
         	  em.remove(usuario);
         	  em.getTransaction().commit();
               return true;
@@ -86,7 +90,9 @@ public class UsuarioDAO {
     
     public boolean atualizarUsuario(List<Usuario> usuarios) {
         try {
-            em.getTransaction().begin();  
+        	if(!em.getTransaction().isActive()) {
+          	  em.getTransaction().begin();
+            } 
       	  	for (Usuario usuario : usuarios) {
 				em.merge(usuario);
 			}

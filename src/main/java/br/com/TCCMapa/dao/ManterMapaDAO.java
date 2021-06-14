@@ -44,7 +44,9 @@ public class ManterMapaDAO {
 	
 	public boolean inserirMapaUsuario(MapaUsuario mapaUsuario) {
         try {
-            em.getTransaction().begin();
+        	if(!em.getTransaction().isActive()) {
+          	  em.getTransaction().begin();
+            }
             MapaUsuario newMapaUsuario = new MapaUsuario();
             newMapaUsuario.setId(this.getNextIdMapaUsuario());  
             newMapaUsuario.setNomeMapa(mapaUsuario.getNomeMapa());
@@ -60,7 +62,9 @@ public class ManterMapaDAO {
 	
 	 public boolean deletarMapaUsuario(MapaUsuario mapaUsuario) {
 		try {
-			em.getTransaction().begin();  
+			if(!em.getTransaction().isActive()) {
+          	  em.getTransaction().begin();
+            }  
 			em.remove(mapaUsuario);
 			em.getTransaction().commit();
 			return true;

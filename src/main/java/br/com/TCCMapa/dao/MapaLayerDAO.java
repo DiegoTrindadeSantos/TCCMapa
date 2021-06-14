@@ -25,7 +25,9 @@ public class MapaLayerDAO {
 		MapaUsuario mapaUsuario = (MapaUsuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("mapaUsuario");
 		try {
 			List<MapaLayers> mapaLayer = this.obterMapaLayersPorMapaId(mapaUsuario);
-			em.getTransaction().begin();
+			if(!em.getTransaction().isActive()) {
+          	  em.getTransaction().begin();
+            }
 			for (MapaLayers mapaLayers : mapaLayer) {
 				em.remove(mapaLayers);
 			}
@@ -55,7 +57,9 @@ public class MapaLayerDAO {
 		MapaUsuario mapaUsuario = (MapaUsuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("mapaUsuario");
 		try {
 			
-			em.getTransaction().begin();
+			if(!em.getTransaction().isActive()) {
+          	  em.getTransaction().begin();
+            }
 			MapaLayers newLayer = new MapaLayers();
 			newLayer.setId(getNextIdMapaLayer());
 			newLayer.setGeoJsonLayer(geoJsonLayer);
