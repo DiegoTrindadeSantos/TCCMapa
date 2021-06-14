@@ -13,7 +13,7 @@
 	
 	</p:layoutUnit>
 	<p:layoutUnit position="south" collapsible="true" header="Detalhes" size="150">
-		<p:outputLabel id="direitos" value="Nesta tela pode-se alterar a senha, apertando no botão Save. Pode-se excluir o Usuário" /> 
+		<p:outputLabel id="direitos" value="Nesta tela pode-se alterar a senha, apertando no botão Salvar. Pode-se também excluir o Usuário" /> 
 	</p:layoutUnit>
 	<p:layoutUnit position="center" header="Tela de Manter o Cadastro do Usuário">
 		  <h:form id="usuarios">
@@ -32,7 +32,7 @@
 		       </p:column>
 				
 		        <p:column>
-		           <p:commandButton update="userList" value="Delete" icon="ui-icon-closethick"
+		           <p:commandButton update="userList" value="Deletar Usuário" icon="ui-icon-closethick"
 		                        action="#{cadastroMB.delete(user)}"
 		                        styleClass="ui-priority-primary">
                         <p:confirm header="Limpar" message="Tem certeza que deseja excluir o Usuário?" icon="pi pi-exclamation-triangle"/>
@@ -40,11 +40,13 @@
 		        </p:column>
 		     </p:dataTable>
 		     <br/>
-		     <p:commandButton id="save" value="Salvar" action="#{cadastroMB.update}" icon="ui-icon-disk" update="messages">
-		         <f:ajax execute="@form" render="@form"/>
-		     </p:commandButton>
-		     <p:commandButton id="back" value="Voltar" action="#{cadastroMB.voltar}" />
-		    	
+		     
+		    <h:panelGrid columns="1" cellpadding="5" style="margin: 0 auto; border:0px">
+		    	<p:commandButton id="save" value="Salvar" action="#{cadastroMB.update}" icon="ui-icon-disk" update="messages">
+			         <f:ajax execute="@form" render="@form"/>
+			     </p:commandButton>
+			     <p:commandButton id="back" value="Voltar" action="#{cadastroMB.voltar}" />	
+		    </h:panelGrid>
 		    
 		    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
 	            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
