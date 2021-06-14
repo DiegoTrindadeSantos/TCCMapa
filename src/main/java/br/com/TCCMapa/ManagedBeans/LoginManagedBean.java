@@ -15,28 +15,30 @@ public class LoginManagedBean {
 
 	private UsuarioDAO usuarioDAO = new UsuarioDAO();
 	public Usuario usuario = new Usuario();
+	public MapaUsuario mapaUsuario = new MapaUsuario();
 	   
-	  public String envia() {
+	public String envia() {
 	    
-	    usuario = usuarioDAO.getUsuario(usuario.getNomeUsuario(), usuario.getSenha());
-	    if (usuario == null) {
-	      usuario = new Usuario();
+	  usuario = usuarioDAO.getUsuario(usuario.getNomeUsuario(), usuario.getSenha());
+	  if (usuario == null) {
+		  usuario = new Usuario();
 	      FacesContext.getCurrentInstance().addMessage(
 	         null,
 	         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário não Encontrado ou Senha Incorreta!",
 	           "Erro no Login!"));
 	      return null;
-	    } else {
-	    	FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuarioLogado",usuario);
-	    	return "/manterMapa";
-	    }
-	         
-	         
+	  } else {
+		  FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuarioLogado",usuario);
+		  return "/manterMapa";
 	  }
+	         
+	         
+	}
 	  
 	public String edit(MapaUsuario mapaUsuario) {
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("mapaUsuario",mapaUsuario);
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuarioLogado",mapaUsuario.getUsuario());
+		this.setMapaUsuario(mapaUsuario);
 		return "/index";
 	}	  
 	
@@ -44,12 +46,22 @@ public class LoginManagedBean {
 		return "/cadastrar";
 	}
 	 
-	  public Usuario getUsuario() {
-	    return usuario;
-	  }
+	public Usuario getUsuario() {
+	  return usuario;
+	}
 	 
-	  public void setUsuario(Usuario usuario) {
-	    this.usuario = usuario;
-	  }
+	public void setUsuario(Usuario usuario) {
+	  this.usuario = usuario;
+	}
+
+	public MapaUsuario getMapaUsuario() {
+		return mapaUsuario;
+	}
+
+	public void setMapaUsuario(MapaUsuario mapaUsuario) {
+		this.mapaUsuario = mapaUsuario;
+	}
+	  
+	
 	
 }

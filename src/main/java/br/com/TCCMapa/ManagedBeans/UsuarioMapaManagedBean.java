@@ -34,11 +34,6 @@ public class UsuarioMapaManagedBean {
         
     }
 	
-	public String obterNomeMapa() {
-		MapaUsuario mapaUsuario = (MapaUsuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("mapaUsuario");
-		return mapaUsuario.getNomeMapa();
-	}
-	
 	public void delete(MapaUsuario mapaUsuario) {
 		manterMapaDAO.deletarMapaUsuario(mapaUsuario);
 		listaMapas.remove(mapaUsuario);
