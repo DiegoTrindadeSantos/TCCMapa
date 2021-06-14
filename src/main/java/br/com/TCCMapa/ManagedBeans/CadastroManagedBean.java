@@ -6,14 +6,14 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import br.com.TCCMapa.dao.UsuarioDAO;
 import br.com.TCCMapa.model.Usuario;
 
 @ManagedBean(name = "cadastroMB")
-@RequestScoped
+@SessionScoped
 public class CadastroManagedBean {
 
 	public List<Usuario> usuarios;
@@ -24,7 +24,7 @@ public class CadastroManagedBean {
 
     @PostConstruct
     public void init() {
-    	this.usuarios = new ArrayList<Usuario>();
+        this.usuarios = usuarioDao.listAll();
     }
 
     public void delete(Usuario usuario) {
