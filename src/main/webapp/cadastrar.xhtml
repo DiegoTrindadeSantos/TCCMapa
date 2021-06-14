@@ -8,24 +8,36 @@
 </h:head>
   
 <h:body>
-<h:form id="add">
-    <h:panelGrid columns="3" cellpadding="5" style="margin: 0 auto;">
-    	<p:growl id="messages" sticky="true" />
-        <p:outputLabel for="nomeUsuario" value="Login" />
-        <p:inputText id="nomeUsuario" value="#{cadastroMB.usuario.nomeUsuario}" />
-        <p:message for="nomeUsuario" />
- 
-        <p:outputLabel for="senha" value="Senha" />
-        <p:password id="senha" value="#{cadastroMB.usuario.senha}" feedback="true"/>
-        <p:message for="senha" />
- 
-        <p:commandButton update="@form messages" value="Add" action="#{cadastroMB.add}" >
-        </p:commandButton>
-    </h:panelGrid>
-    
-    <h:panelGrid columns="1" cellpadding="5" style="margin: 0 auto; border:0px">
-    	<p:commandButton id="back" value="voltar" action="#{cadastroMB.voltar}" />
-    </h:panelGrid>
-</h:form>
+<p:layout fullPage="true">
+	<p:layoutUnit position="north" size="50" header="Sistema de Mapa Interativo">
+	
+	</p:layoutUnit>
+	
+	<p:layoutUnit position="south" collapsible="true" header="Direto" size="150">
+		<p:outputLabel id="direitos" value="Direitos Reservados para Diego Trindade" /> 
+	</p:layoutUnit>
+	
+	<p:layoutUnit position="center" size="130" header="Tela para Cadastrar um Usuário">
+		<h:form id="add">
+		    <h:panelGrid columns="3" cellpadding="5" style="margin: 0 auto;">
+		    	<p:growl id="messages" sticky="true" />
+		        <p:outputLabel for="nomeUsuario" value="Login" />
+		        <p:inputText id="nomeUsuario" value="#{cadastroMB.usuario.nomeUsuario}" />
+		        <p:message for="nomeUsuario" />
+		 
+		        <p:outputLabel for="senha" value="Senha" />
+		        <p:password id="senha" value="#{cadastroMB.usuario.senha}" feedback="true"/>
+		        <p:message for="senha" />
+		 
+		        <p:commandButton update="@form messages" value="Add" action="#{cadastroMB.add}" >
+		        </p:commandButton>
+		    </h:panelGrid>
+		    
+		    <h:panelGrid columns="1" cellpadding="5" style="margin: 0 auto; border:0px">
+		    	<p:commandButton id="back" value="voltar" action="#{cadastroMB.voltar}" />
+		    </h:panelGrid>
+		</h:form>
+	</p:layoutUnit>
+</p:layout>
 </h:body>
 </html>

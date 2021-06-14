@@ -8,39 +8,48 @@
 </h:head>
   
 <h:body>
-  <h:form id="usuarios">
-   <p:growl id="messages" sticky="true" />
-   <p:dataTable id="userList" var="user" value="#{cadastroMB.usuarios}">
-      <p:column headerText="Id">
-         <h:outputText value="#{user.id}"/>
-      </p:column>
-		
-       <p:column headerText="Login">
-         <p:inputText id="nomeUsuario" value="#{user.nomeUsuario}"/>
-       </p:column>
-		
-	   <p:column headerText="Senha">
-         <p:password id="senha" value="#{user.senha}" redisplay="true" feedback="true" />
-       </p:column>
-		
-        <p:column>
-           <p:commandButton update="userList" value="Delete" icon="ui-icon-closethick"
-                        action="#{cadastroMB.delete(user)}"
-                        styleClass="ui-priority-primary">
-           </p:commandButton>
-        </p:column>
-     </p:dataTable>
-     <br/>
-     <p:commandButton style="float: right" id="save" value="Save" tyleClass="ui-priority-primary"
-                action="#{cadastroMB.update}" icon="ui-icon-disk" update="messages">
-         <f:ajax execute="@form" render="@form"/>
-     </p:commandButton>
-     
-      <h:panelGrid columns="1" cellpadding="5" style="margin: 0 auto; border:0px">
-    	<p:commandButton id="back" value="voltar" action="#{cadastroMB.voltar}" />
-    </h:panelGrid>
-</h:form>
-
+<p:layout fullPage="true">
+	<p:layoutUnit position="north" size="50" header="Sistema de Mapa Interativo">
+	
+	</p:layoutUnit>
+	<p:layoutUnit position="south" collapsible="true" header="Direto" size="150">
+		<p:outputLabel id="direitos" value="Direitos Reservados para Diego Trindade" /> 
+	</p:layoutUnit>
+	<p:layoutUnit position="center" size="130" header="Tela de Manter o Cadastro do Usuário">
+		  <h:form id="usuarios">
+		   <p:growl id="messages" sticky="true" />
+		   <p:dataTable id="userList" var="user" value="#{cadastroMB.usuarios}">
+		      <p:column headerText="Id">
+		         <h:outputText value="#{user.id}"/>
+		      </p:column>
+				
+		       <p:column headerText="Login">
+		         <p:inputText id="nomeUsuario" value="#{user.nomeUsuario}"/>
+		       </p:column>
+				
+			   <p:column headerText="Senha">
+		         <p:password id="senha" value="#{user.senha}" redisplay="true" feedback="true" />
+		       </p:column>
+				
+		        <p:column>
+		           <p:commandButton update="userList" value="Delete" icon="ui-icon-closethick"
+		                        action="#{cadastroMB.delete(user)}"
+		                        styleClass="ui-priority-primary">
+		           </p:commandButton>
+		        </p:column>
+		     </p:dataTable>
+		     <br/>
+		     <p:commandButton style="float: right" id="save" value="Save" tyleClass="ui-priority-primary"
+		                action="#{cadastroMB.update}" icon="ui-icon-disk" update="messages">
+		         <f:ajax execute="@form" render="@form"/>
+		     </p:commandButton>
+		     
+		      <h:panelGrid columns="1" cellpadding="5" style="margin: 0 auto; border:0px">
+		    	<p:commandButton id="back" value="voltar" action="#{cadastroMB.voltar}" />
+		    </h:panelGrid>
+		</h:form>
+	</p:layoutUnit>
+</p:layout>
     
    
 </h:body>
