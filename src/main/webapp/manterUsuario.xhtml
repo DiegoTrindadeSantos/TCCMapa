@@ -35,6 +35,7 @@
 		           <p:commandButton update="userList" value="Delete" icon="ui-icon-closethick"
 		                        action="#{cadastroMB.delete(user)}"
 		                        styleClass="ui-priority-primary">
+                        <p:confirm header="Limpar" message="Tem certeza que deseja excluir o Usuário?" icon="pi pi-exclamation-triangle"/>
 		           </p:commandButton>
 		        </p:column>
 		     </p:dataTable>
@@ -47,6 +48,11 @@
 		      <h:panelGrid columns="1" cellpadding="5" style="margin: 0 auto; border:0px">
 		    	<p:commandButton id="back" value="voltar" action="#{cadastroMB.voltar}" />
 		    </h:panelGrid>
+		    
+		    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+	            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+	            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />
+	        </p:confirmDialog>
 		</h:form>
 	</p:layoutUnit>
 </p:layout>
