@@ -31,11 +31,9 @@
 		 
 		        <p:commandButton update="@form messages" value="Add" action="#{cadastroMB.add}" >
 		        </p:commandButton>
+		        <p:commandButton id="back" value="voltar" action="#{cadastroMB.voltarLogin}" ajax="false" />
 		    </h:panelGrid>
 		    
-		    <h:panelGrid columns="1" cellpadding="5" style="margin: 0 auto; border:0px">
-		    	<p:commandButton id="back" value="voltar" action="#{cadastroMB.voltarLogin}" ajax="false" />
-		    </h:panelGrid>
 		</h:form>
 	</p:layoutUnit>
 </p:layout>
