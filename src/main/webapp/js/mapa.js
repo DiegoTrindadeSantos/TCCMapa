@@ -50,6 +50,10 @@ var attribution = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> c
 			        'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 			        , {attribution: attribution}
 			).addTo(m);
+			
+			var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+				attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+			}).addTo(m);
 		 
 			 var blackAndWhite = L.tileLayer(
 			         'http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png'
@@ -57,7 +61,7 @@ var attribution = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> c
 			 )
 		 
 			 var baseMaps = {
-			       "Mapnik": mapnik, "Black and White": blackAndWhite
+			       "Mapnik": mapnik, "Black and White": blackAndWhite, "World Imagery": Esri_WorldImagery
 			   };
 		 
 		 	var grupoLayer = L.control.layers(baseMaps).addTo(m);
