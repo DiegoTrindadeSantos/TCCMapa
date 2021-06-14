@@ -14,7 +14,7 @@ import br.com.TCCMapa.model.Usuario;
 public class LoginManagedBean {
 
 	private UsuarioDAO usuarioDAO = new UsuarioDAO();
-	private Usuario usuario = new Usuario();
+	public Usuario usuario = new Usuario();
 	   
 	  public String envia() {
 	    
@@ -42,6 +42,7 @@ public class LoginManagedBean {
 	
 	public String obterNomeUsuario() {
 		Usuario usuarioLogado = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
+		this.setUsuario(usuarioLogado);
 		return usuarioLogado.getNomeUsuario();
 	}
 	  
