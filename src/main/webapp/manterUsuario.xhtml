@@ -40,14 +40,11 @@
 		        </p:column>
 		     </p:dataTable>
 		     <br/>
-		     <p:commandButton style="float: right" id="save" value="Save" tyleClass="ui-priority-primary"
-		                action="#{cadastroMB.update}" icon="ui-icon-disk" update="messages">
+		     <p:commandButton id="save" value="Salvar" action="#{cadastroMB.update}" icon="ui-icon-disk" update="messages">
 		         <f:ajax execute="@form" render="@form"/>
 		     </p:commandButton>
-		     
-		      <h:panelGrid columns="1" cellpadding="5" style="margin: 0 auto; border:0px">
-		    	<p:commandButton id="back" value="voltar" action="#{cadastroMB.voltar}" />
-		    </h:panelGrid>
+		     <p:commandButton id="back" value="Voltar" action="#{cadastroMB.voltar}" />
+		    	
 		    
 		    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
 	            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
