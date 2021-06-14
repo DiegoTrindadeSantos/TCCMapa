@@ -34,7 +34,7 @@ public class CadastroManagedBean {
 
     public void add() {
     	usuarioDao.inserirUsuario(usuario);
-    	FacesMessage message = new FacesMessage("Usuário ", usuario.getNomeUsuario() + " adicionado com sucesso.");
+    	FacesMessage message = new FacesMessage("Usuário "+ usuario.getNomeUsuario() + " adicionado com sucesso.");
         FacesContext.getCurrentInstance().addMessage(null, message);
         this.usuarios = usuarioDao.listAll();
         this.usuario = new Usuario();

@@ -39,6 +39,11 @@ public class LoginManagedBean {
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario",mapaUsuario.getUsuario());
 		return "/index";
 	}	  
+	
+	public String obterNomeUsuario() {
+		Usuario usuarioLogado = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
+		return usuarioLogado.getNomeUsuario();
+	}
 	  
 	  public String cadastrar() {
 		  return "/cadastrar";
