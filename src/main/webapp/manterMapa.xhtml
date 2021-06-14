@@ -8,46 +8,57 @@
 </h:head>
   
 <h:body>
-  <h:form id="mapas">
-   <p:growl id="messages" sticky="true" />
-   <p:dataTable id="mapList" var="map" value="#{userMapMB.listaMapas}">
-      <p:column headerText="Id">
-         <h:outputText value="#{map.id}"/>
-      </p:column>
-		
-       <p:column headerText="nome">
-         <p:outputLabel id="nome" value="#{map.nomeMapa}"/>
-       </p:column>
-		
-        <p:column>
-           <p:commandButton value="Editar Mapa" icon="ui-icon-gear"
-                        action="#{LoginMB.edit(map)}" ajax="false"
-                        styleClass="ui-priority-primary">
-           </p:commandButton>
-           <p:commandButton value="Deletar Mapa" icon="ui-icon-closethick"
-                        action="#{userMapMB.delete(map)}" 
-                        styleClass="ui-priority-primary">
-           </p:commandButton>
-        </p:column>
-     </p:dataTable>
-     <br/>
-</h:form>
+<p:layout fullPage="true">
+	<p:layoutUnit position="north" size="50" header="Sistema de Mapa Interativo">
+	
+	</p:layoutUnit>
 
-<h:form id="add">
-    <h:panelGrid columns="3" cellpadding="5" style="margin: 0 auto;">
-    	<p:growl id="messages" sticky="true" />
-        <p:outputLabel for="nomeMapa" value="Nome do Mapa" />
-        <p:inputText id="nomeMapa" value="#{userMapMB.mapaUsuario.nomeMapa}" />
-        <p:message for="nomeMapa" />
- 
-        <p:commandButton update="@form :mapas:mapList messages" value="Adicionar" action="#{userMapMB.add}" >
-        </p:commandButton>
-    </h:panelGrid>
-    
-    <h:panelGrid columns="1" cellpadding="5" style="margin: 0 auto; border:0px">
-    	<p:commandButton id="exit" value="Sair" action="#{MapaMB.sair}" />
-    </h:panelGrid>
-</h:form>
-
+	<p:layoutUnit position="south" collapsible="true" header="Direto" size="150">
+		<p:outputLabel id="direitos" value="Direitos Reservados para Diego Trindade" /> 
+	</p:layoutUnit>
+	
+	<p:layoutUnit position="center" size="130" header="Tela de Cadastro dos Mapas">
+		  <h:form id="mapas">
+		   <p:growl id="messages" sticky="true" />
+		   <p:dataTable id="mapList" var="map" value="#{userMapMB.listaMapas}">
+		      <p:column headerText="Id">
+		         <h:outputText value="#{map.id}"/>
+		      </p:column>
+				
+		       <p:column headerText="nome">
+		         <p:outputLabel id="nome" value="#{map.nomeMapa}"/>
+		       </p:column>
+				
+		        <p:column>
+		           <p:commandButton value="Editar Mapa" icon="ui-icon-gear"
+		                        action="#{LoginMB.edit(map)}" ajax="false"
+		                        styleClass="ui-priority-primary">
+		           </p:commandButton>
+		           <p:commandButton value="Deletar Mapa" icon="ui-icon-closethick"
+		                        action="#{userMapMB.delete(map)}" 
+		                        styleClass="ui-priority-primary">
+		           </p:commandButton>
+		        </p:column>
+		     </p:dataTable>
+		     <br/>
+			</h:form>
+			
+			<h:form id="add">
+			    <h:panelGrid columns="3" cellpadding="5" style="margin: 0 auto;">
+			    	<p:growl id="messages" sticky="true" />
+			        <p:outputLabel for="nomeMapa" value="Nome do Mapa" />
+			        <p:inputText id="nomeMapa" value="#{userMapMB.mapaUsuario.nomeMapa}" />
+			        <p:message for="nomeMapa" />
+			 
+			        <p:commandButton update="@form :mapas:mapList messages" value="Adicionar" action="#{userMapMB.add}" >
+			        </p:commandButton>
+			    </h:panelGrid>
+			    
+			    <h:panelGrid columns="1" cellpadding="5" style="margin: 0 auto; border:0px">
+			    	<p:commandButton id="exit" value="Sair" action="#{MapaMB.sair}" />
+			    </h:panelGrid>
+			</h:form>
+		</p:layoutUnit>
+</p:layout>
 </h:body>
 </html>
