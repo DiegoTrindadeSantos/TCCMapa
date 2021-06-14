@@ -17,6 +17,7 @@ import org.primefaces.model.UploadedFile;
 import br.com.TCCMapa.dao.MapaLayerDAO;
 import br.com.TCCMapa.dao.ManterMapaDAO;
 import br.com.TCCMapa.model.MapaUsuario;
+import br.com.TCCMapa.model.Usuario;
 
 @ManagedBean(name = "MapaMB")
 @SessionScoped
@@ -25,6 +26,7 @@ public class MapaManagedBean {
 	private MapaLayerDAO arquivosDAO = new MapaLayerDAO();
 	private ManterMapaDAO manterMapaDAO = new ManterMapaDAO();
 	public List<MapaUsuario> listaMapas = new ArrayList<MapaUsuario>();
+	public LoginManagedBean loginMB = new LoginManagedBean();
 	public int idInserido;
 	
 	@PostConstruct
@@ -42,7 +44,7 @@ public class MapaManagedBean {
  
     public void upload() {
     	if (file != null) {
-        	FacesMessage message = new FacesMessage("Successful", file.getFileName() + " is uploaded.");
+        	FacesMessage message = new FacesMessage("Successful"+ file.getFileName() + " is uploaded.");
             FacesContext.getCurrentInstance().addMessage(null, message);
         }
     }
@@ -104,7 +106,8 @@ public class MapaManagedBean {
     }
 	
 	public String voltar() {
-    	return "/manterMapa";
+		loginMB.setUsuario((Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado"));
+		return "/manterMapa";
     }
 
 	public int getIdInserido() {
