@@ -55,7 +55,7 @@ public class CadastroManagedBean {
     }
     
     public String voltar() {
-    	return "/main";
+    	return "/index";
     }
 
 	public List<Usuario> getUsuarios() {
