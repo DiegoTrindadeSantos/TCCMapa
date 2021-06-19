@@ -147,6 +147,7 @@ var attribution = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> c
 					if(layer._shadow!=null && layer._container==null){
 						var strin='{ "type": "Point", "coordinates": ['+layer._latlng.lat+', '+layer._latlng.lng+'] }';    
 						var insertGeoJson = JSON.stringify(strin);
+						console.log("passei"+insertGeoJson);
 						
 						recebeJsonFormas([{ name:'geoJson', value : insertGeoJson }]);
 					}
