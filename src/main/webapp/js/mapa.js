@@ -132,9 +132,10 @@ var attribution = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> c
 			grupoLayer.addOverlay(arrayLayers[indice],tipo);
 		}
 		
+		
 		function Salvar(){
 			m.eachLayer(function(layer){
-				if(layer._bounds!=null && layer._leaflet_id!=null && layer._container!=null){
+				if(layer._leaflet_id!=null && (layer._shadow!=null || layer._radius!=null)){
 					var layersInternos = layer._layers;
 					for(var indice in layersInternos){
 					    
@@ -142,6 +143,12 @@ var attribution = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> c
  				
  						recebeJsonFormas([{ name:'geoJson', value : geoJsonFormas }]);
 					    
+					}
+					if(layer._shadow!=null && layer._container==null){
+						var strin='{ "type": "Point", "coordinates": ['+layer._latlng.lat+', '+layer._latlng.lng+'] }';    
+						var insertGeoJson = JSON.stringify(strin);
+						
+						recebeJsonFormas([{ name:'geoJson', value : insertGeoJson }]);
 					}
 				}
 			});
