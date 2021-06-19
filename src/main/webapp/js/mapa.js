@@ -135,7 +135,7 @@ var attribution = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> c
 		
 		function Salvar(){
 			m.eachLayer(function(layer){
-				if(layer._leaflet_id!=null && (layer._shadow!=null || layer._radius!=null)){
+				if(layer._bounds!=null && layer._leaflet_id!=null && layer._container!=null){
 					var layersInternos = layer._layers;
 					for(var indice in layersInternos){
 					    
@@ -144,23 +144,23 @@ var attribution = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> c
  						recebeJsonFormas([{ name:'geoJson', value : geoJsonFormas }]);
 					    
 					}
-					if(layer._shadow!=null && layer._container==null){
-						var geojson = {
-						    "name":"NewFeatureType",
-						    "type":"FeatureCollection",
-						    "features":[{
-						        "type":"Feature",
-						        "geometry":{
-						            "type":"Point",
-						            "coordinates":[layer._latlng.lat, layer._latlng.lng]
-						        },
-						        "properties":null
-						    }]
-						};
-						var geoString = JSON.stringify(geojson);
-						
-						recebeJsonFormas([{ name:'geoJson', value : geoString }]);
-					}
+				}
+				if(layer._leaflet_id!=null && layer._shadow!=null && layer._container==null){
+					var geojson = {
+					    "name":"NewFeatureType",
+					    "type":"FeatureCollection",
+					    "features":[{
+					        "type":"Feature",
+					        "geometry":{
+					            "type":"Point",
+					            "coordinates":[layer._latlng.lat, layer._latlng.lng]
+					        },
+					        "properties":null
+					    }]
+					};
+					var geoString = JSON.stringify(geojson);
+					
+					recebeJsonFormas([{ name:'geoJson', value : geoString }]);
 				}
 			});
 		}
