@@ -145,7 +145,7 @@ var attribution = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> c
 					    
 					}
 				}
-				if(layer._leaflet_id!=null && layer._shadow!=null && layer._container==null){
+				if(layer._shadow!=null){
 					var geojson = {
 					    "name":"NewFeatureType",
 					    "type":"FeatureCollection",
