@@ -32,6 +32,11 @@ var attribution = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> c
 		        	      color: 'steelblue'
 		        	     },
 		        	    },
+		        	    marker:{
+		        	      shapeOptions: {
+		        	      color: 'blue'
+		        	     },
+		        	    },
 		        	   },
 		        	   edit: {
 		        	    featureGroup: drawnItems
