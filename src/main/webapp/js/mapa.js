@@ -148,11 +148,11 @@ var attribution = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> c
 				if(layer._shadow!=null){
 					var geojson = {
 					        "type":"Feature",
+					        "properties":{},
 					        "geometry":{
 					            "type":"Point",
 					            "coordinates":[layer._latlng.lat, layer._latlng.lng]
-					        },
-					        "properties":null
+					        }
 					};
 					var geoString = JSON.stringify(geojson);
 					
