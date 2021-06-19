@@ -151,7 +151,7 @@ var attribution = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> c
 					        "properties":{},
 					        "geometry":{
 					            "type":"Point",
-					            "coordinates":[layer._latlng.lat, layer._latlng.lng]
+					            "coordinates":[layer._latlng.lng, layer._latlng.lat]
 					        }
 					};
 					var geoString = JSON.stringify(geojson);
