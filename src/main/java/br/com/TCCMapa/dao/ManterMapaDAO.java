@@ -11,6 +11,7 @@ import javax.persistence.Query;
 
 import org.hibernate.HibernateException;
 
+import br.com.TCCMapa.model.MapaLayers;
 import br.com.TCCMapa.model.MapaUsuario;
 import br.com.TCCMapa.model.Usuario;
 import br.com.TCCMapa.utils.ConnectionFactory;
@@ -18,6 +19,7 @@ import br.com.TCCMapa.utils.ConnectionFactory;
 public class ManterMapaDAO {
 
 	private EntityManager em;
+	MapaLayerDAO mapaLayerDao = new MapaLayerDAO();
 	
 	public ManterMapaDAO() {
 		this.em = ConnectionFactory.getConnection();
@@ -62,9 +64,13 @@ public class ManterMapaDAO {
 	
 	 public boolean deletarMapaUsuario(MapaUsuario mapaUsuario) {
 		try {
+			List<MapaLayers> mapaLayer = mapaLayerDao.obterMapaLayersPorMapaId(mapaUsuario);
 			if(!em.getTransaction().isActive()) {
           	  em.getTransaction().begin();
             }  
+			for (MapaLayers mapaLayers : mapaLayer) {
+				em.remove(mapaLayers);
+			}
 			em.remove(mapaUsuario);
 			em.getTransaction().commit();
 			return true;
