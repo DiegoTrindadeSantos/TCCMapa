@@ -53,6 +53,24 @@ public class MapaLayerDAO {
 		
 	}
 	
+	public void deletarListaMapaLayers(List<MapaLayers> listaMapa) {
+		try {
+			
+			if(!em.getTransaction().isActive()) {
+          	  em.getTransaction().begin();
+            }
+			for (MapaLayers mapaLayers : listaMapa) {
+				em.remove(mapaLayers);
+			}
+			em.getTransaction().commit();
+			
+		} catch (HibernateException ex) {
+			ex.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void salvarMapaLayer(String geoJsonLayer) {
 		MapaUsuario mapaUsuario = (MapaUsuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("mapaUsuario");
 		try {

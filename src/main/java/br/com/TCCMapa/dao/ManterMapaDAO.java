@@ -68,9 +68,9 @@ public class ManterMapaDAO {
 			if(!em.getTransaction().isActive()) {
           	  em.getTransaction().begin();
             }  
-			for (MapaLayers mapaLayers : mapaLayer) {
-				em.remove(mapaLayers);
-			}
+			
+			mapaLayerDao.deletarListaMapaLayers(mapaLayer);
+			
 			em.remove(mapaUsuario);
 			em.getTransaction().commit();
 			return true;
