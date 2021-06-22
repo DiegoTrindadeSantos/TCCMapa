@@ -33,6 +33,7 @@ public class CadastroManagedBean {
 
     public void add() {
     	String senhaCriptografada = Cripto.Md5(usuario.getSenha());
+    	usuario.setSenha(senhaCriptografada);
     	usuarioDao.inserirUsuario(usuario);
     	FacesMessage message = new FacesMessage("Usuário "+ usuario.getNomeUsuario() + " adicionado com sucesso.");
         FacesContext.getCurrentInstance().addMessage(null, message);
