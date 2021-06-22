@@ -11,15 +11,14 @@ import javax.faces.context.FacesContext;
 
 import br.com.TCCMapa.dao.UsuarioDAO;
 import br.com.TCCMapa.model.Usuario;
+import br.com.TCCMapa.utils.Cripto;
 
 @ManagedBean(name = "cadastroMB")
 @SessionScoped
 public class CadastroManagedBean {
 
 	public List<Usuario> usuarios;
-
     public Usuario usuario = new Usuario();
-
     public UsuarioDAO usuarioDao = new UsuarioDAO();
 
     @PostConstruct
@@ -33,6 +32,7 @@ public class CadastroManagedBean {
     }
 
     public void add() {
+    	String senhaCriptografada = Cripto.Md5(usuario.getSenha());
     	usuarioDao.inserirUsuario(usuario);
     	FacesMessage message = new FacesMessage("Usuário "+ usuario.getNomeUsuario() + " adicionado com sucesso.");
         FacesContext.getCurrentInstance().addMessage(null, message);
