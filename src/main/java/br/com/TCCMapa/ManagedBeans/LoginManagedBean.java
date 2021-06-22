@@ -8,6 +8,7 @@ import javax.faces.context.FacesContext;
 import br.com.TCCMapa.dao.UsuarioDAO;
 import br.com.TCCMapa.model.MapaUsuario;
 import br.com.TCCMapa.model.Usuario;
+import br.com.TCCMapa.utils.Cripto;
 
 @ManagedBean(name = "LoginMB")
 @RequestScoped
@@ -19,7 +20,7 @@ public class LoginManagedBean {
 	   
 	public String envia() {
 	    
-	  usuario = usuarioDAO.getUsuario(usuario.getNomeUsuario(), usuario.getSenha());
+	  usuario = usuarioDAO.getUsuario(usuario.getNomeUsuario(), Cripto.Md5(usuario.getSenha()));
 	  if (usuario == null) {
 		  usuario = new Usuario();
 	      FacesContext.getCurrentInstance().addMessage(
